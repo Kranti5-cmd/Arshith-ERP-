@@ -19,16 +19,16 @@ export const Header = ({ onOpenNewProjectModal, setActiveTab, unreadNotification
   return (
     <header className="h-16 bg-white border-b border-[#E2E8F0] px-6 flex items-center justify-between sticky top-0 z-20 shadow-xs">
       {/* Search Input */}
-      <div className="flex items-center gap-4 flex-1 max-w-md">
+      <div className="flex items-center gap-4 flex-1 min-w-[160px] max-w-xs md:max-w-sm lg:max-w-md">
         <div className="relative w-full group">
-          <Search className="w-4 h-4 text-[#64748B] group-focus-within:text-[#2563EB] absolute left-3.5 top-1/2 -translate-y-1/2 transition-colors" />
+          <Search className="w-4 h-4 text-[#64748B] group-focus-within:text-[#2563EB] absolute left-3 top-1/2 -translate-y-1/2 transition-colors pointer-events-none" />
           <input
             type="text"
-            placeholder="Search projects by ID, title, client, or tech stack..."
+            placeholder="Search projects..."
             onClick={() => setActiveTab('projects')}
-            className="w-full pl-9 pr-12 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] focus:bg-white transition-all text-[#111827] placeholder-[#64748B]"
+            className="w-full pl-8 pr-16 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] focus:bg-white transition-all text-[#111827] placeholder-[#64748B]"
           />
-          <kbd className="hidden sm:inline-flex items-center gap-0.5 absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono text-[#64748B] bg-white border border-[#E2E8F0] rounded shadow-2xs">
+          <kbd className="hidden lg:inline-flex items-center gap-0.5 absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono text-[#64748B] bg-white border border-[#E2E8F0] rounded shadow-2xs pointer-events-none select-none">
             Ctrl K
           </kbd>
         </div>

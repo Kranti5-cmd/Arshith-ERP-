@@ -53,6 +53,11 @@ export const AuthProvider = ({ children }) => {
   const switchCompany = (newCompany) => {
     setCompany(newCompany);
     localStorage.setItem('arshith_company', newCompany);
+    if (user) {
+      const updatedUser = { ...user, company: newCompany };
+      setUser(updatedUser);
+      localStorage.setItem('arshith_user', JSON.stringify(updatedUser));
+    }
   };
 
   const login = async (email, password, selectedCompany = 'arshith') => {

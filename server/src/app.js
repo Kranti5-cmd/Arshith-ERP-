@@ -21,6 +21,7 @@ const clientRoutes = require('./routes/clientRoutes');
 const arshithFreshRoutes = require('./routes/arshithFreshRoutes');
 const integrationRoutes = require('./routes/integrationRoutes');
 const codeLekhoRoutes = require('./routes/codeLekhoRoutes');
+const hrRoutes = require('./routes/hrRoutes');
 
 const app = express();
 
@@ -64,6 +65,7 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/af', arshithFreshRoutes);
 app.use('/api/integrations', integrationRoutes);
 app.use('/api/codelekho', codeLekhoRoutes);
+app.use('/api/hr', hrRoutes);
 
 // Serve built React client if available
 const clientDistPath = path.join(__dirname, '../../client/dist');

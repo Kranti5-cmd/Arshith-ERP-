@@ -37,8 +37,10 @@ import {
   Area,
 } from 'recharts';
 import { api } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
-export const CentralDashboardPage = ({ onNavigateToIntegrations }) => {
+export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFinance, onNavigateToHr }) => {
+  const { switchCompany } = useAuth();
   const [selectedCompany, setSelectedCompany] = useState('all');
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -105,10 +107,33 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations }) => {
             <span>Real Sync Data ({analytics?.dataFreshness?.totalSyncedRecords || 0} Records)</span>
           </div>
 
+          {onNavigateToFinance && (
+            <button
+              onClick={onNavigateToFinance}
+              className="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 rounded-xl transition-all shadow-sm cursor-pointer"
+              title="Open Multi-Company Finance ERP & Ledger"
+            >
+              <IndianRupee className="w-3.5 h-3.5" />
+              <span>Open Finance ERP</span>
+            </button>
+          )}
+
+          <button
+            onClick={() => {
+              if (onNavigateToHr) onNavigateToHr();
+              else window.dispatchEvent(new CustomEvent('navigate-tab', { detail: 'hr-workforce' }));
+            }}
+            className="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-700 hover:from-indigo-500 hover:to-purple-600 rounded-xl transition-all shadow-sm cursor-pointer"
+            title="Open Central Multi-Company HRMS Portal"
+          >
+            <Users className="w-3.5 h-3.5" />
+            <span>Central HRMS</span>
+          </button>
+
           <button
             onClick={() => fetchAnalytics(selectedCompany)}
             disabled={refreshing}
-            className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-[#E2E8F0] hover:bg-slate-50 rounded-xl transition-all shadow-2xs"
+            className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-white border border-[#E2E8F0] hover:bg-slate-50 rounded-xl transition-all shadow-2xs cursor-pointer"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin text-blue-600' : ''}`} />
             <span>Refresh</span>
@@ -250,8 +275,8 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations }) => {
         <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center">
-                <Leaf className="w-4 h-4" />
+              <div className="w-11 h-9 rounded-xl bg-white border border-emerald-200 flex items-center justify-center overflow-hidden p-0.5 shadow-2xs">
+                <img src="/logos/arshith-fresh-logo.jpg" alt="ArshithFresh" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-slate-900">ArshithFresh</h3>
@@ -310,6 +335,20 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations }) => {
                   <strong className="text-slate-900">{fresh.metrics?.totalSuppliers || 0}</strong>
                 </div>
               </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <div className="text-[11px] font-bold text-slate-800">ArshithFresh IMS</div>
+                  <div className="text-[10px] text-slate-500">Inventory & Supply Chain</div>
+                </div>
+                <button
+                  onClick={() => switchCompany('arshithfresh')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition-all shadow-2xs cursor-pointer group"
+                >
+                  <span>Open IMS</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -318,8 +357,8 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations }) => {
         <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center justify-center">
-                <GraduationCap className="w-4 h-4" />
+              <div className="w-16 h-8 rounded-lg bg-white border border-indigo-200 flex items-center justify-center overflow-hidden p-1 shadow-2xs">
+                <img src="/logos/codelekho-logo.png" alt="CodeLekho" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-slate-900">CodeLekho</h3>
@@ -380,6 +419,20 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations }) => {
                   <strong className="text-emerald-700">Operational</strong>
                 </div>
               </div>
+
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <div className="text-[11px] font-bold text-slate-800">CodeLekho CRM</div>
+                  <div className="text-[10px] text-slate-500">Education, Student & CRM Management</div>
+                </div>
+                <button
+                  onClick={() => switchCompany('codelekho')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#013A2B] hover:bg-[#0C2D26] text-white rounded-xl text-xs font-bold transition-all shadow-2xs cursor-pointer group"
+                >
+                  <span>Open CRM Workspace</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -388,8 +441,8 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations }) => {
         <div className="bg-white rounded-2xl border border-slate-200/90 shadow-xs p-6 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-700 border border-sky-200 flex items-center justify-center">
-                <Briefcase className="w-4 h-4" />
+              <div className="w-12 h-9 rounded-lg bg-white border border-sky-200 flex items-center justify-center overflow-hidden p-0.5 shadow-2xs">
+                <img src="/logos/arshith-infotech-logo.jpg" alt="Arshith Infotech" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-slate-900">Arshith Infotech</h3>

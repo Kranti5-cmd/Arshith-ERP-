@@ -10,6 +10,8 @@ import { EmployeesPage } from './pages/EmployeesPage';
 import { TasksPage } from './pages/TasksPage';
 import { MilestonesPage } from './pages/MilestonesPage';
 import { FinancesPage } from './pages/FinancesPage';
+import { FinanceWorkspace } from './components/finance/FinanceWorkspace';
+import { HrWorkspace } from './components/hr/HrWorkspace';
 import { OnHoldPage } from './pages/OnHoldPage';
 import { CalendarPage } from './pages/CalendarPage';
 import { DocumentsPage } from './pages/DocumentsPage';
@@ -21,6 +23,7 @@ import { AuditLogsPage } from './pages/AuditLogsPage';
 import { LoginPage } from './pages/LoginPage';
 import { CentralDashboardPage } from './pages/CentralDashboardPage';
 import { IntegrationsPage } from './pages/IntegrationsPage';
+import { CodeLekhoCrmWorkspace } from './components/codelekho/CodeLekhoCrmWorkspace';
 import { CodeLekhoApp } from './codelekho/App';
 import { ArshithFreshApp } from './arshithfresh/App';
 
@@ -74,7 +77,7 @@ class ErrorBoundary extends React.Component {
 }
 
 export function AppContent() {
-  const { isAuthenticated, company } = useAuth();
+  const { isAuthenticated, company, switchCompany } = useAuth();
   const [activeTab, setActiveTab] = useState('central-dashboard');
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [projectStatusFilter, setProjectStatusFilter] = useState('ALL');
@@ -102,6 +105,11 @@ export function AppContent() {
     if (isAuthenticated) {
       fetchUnreadCount();
     }
+    const handleNav = (e) => {
+      if (e.detail) setActiveTab(e.detail);
+    };
+    window.addEventListener('navigate-tab', handleNav);
+    return () => window.removeEventListener('navigate-tab', handleNav);
   }, [isAuthenticated]);
 
   // If not authenticated as Admin, show Admin Login page
@@ -109,11 +117,16 @@ export function AppContent() {
     return <LoginPage />;
   }
 
-  // If logged in under CodeLekho company
+  // If logged in under CodeLekho company - Launch Complete CodeLekho CRM
   if (company === 'codelekho') {
     return (
       <ErrorBoundary>
-        <CodeLekhoApp />
+        <CodeLekhoCrmWorkspace
+          onReturnToErm={() => {
+            if (switchCompany) switchCompany('arshith');
+            setActiveTab('central-dashboard');
+          }}
+        />
       </ErrorBoundary>
     );
   }
@@ -123,6 +136,34 @@ export function AppContent() {
     return (
       <ErrorBoundary>
         <ArshithFreshApp />
+      </ErrorBoundary>
+    );
+  }
+
+  // If logged in under Finance ERP
+  if (company === 'finance') {
+    return (
+      <ErrorBoundary>
+        <FinanceWorkspace
+          onReturnToErm={() => {
+            if (switchCompany) switchCompany('arshith');
+            setActiveTab('central-dashboard');
+          }}
+        />
+      </ErrorBoundary>
+    );
+  }
+
+  // If logged in under HRMS
+  if (company === 'hr') {
+    return (
+      <ErrorBoundary>
+        <HrWorkspace
+          onReturnToErm={() => {
+            if (switchCompany) switchCompany('arshith');
+            setActiveTab('central-dashboard');
+          }}
+        />
       </ErrorBoundary>
     );
   }
@@ -159,10 +200,17 @@ export function AppContent() {
         <main className="flex-1 overflow-y-auto">
           <ErrorBoundary>
             {activeTab === 'central-dashboard' && (
-              <CentralDashboardPage onNavigateToIntegrations={() => setActiveTab('integrations')} />
+              <CentralDashboardPage
+                onNavigateToIntegrations={() => setActiveTab('integrations')}
+                onNavigateToFinance={() => setActiveTab('finances')}
+                onNavigateToHr={() => setActiveTab('hr-workforce')}
+              />
             )}
 
             {activeTab === 'integrations' && <IntegrationsPage />}
+            {activeTab === 'codelekho-crm' && (
+              <CodeLekhoCrmWorkspace onReturnToErm={() => setActiveTab('central-dashboard')} />
+            )}
 
             {activeTab === 'dashboard' && (
               <DashboardPage
@@ -209,7 +257,12 @@ export function AppContent() {
             {activeTab === 'employees' && <EmployeesPage onSelectProject={handleSelectProject} />}
             {activeTab === 'tasks' && <TasksPage onSelectProject={handleSelectProject} />}
             {activeTab === 'milestones' && <MilestonesPage onSelectProject={handleSelectProject} />}
-            {activeTab === 'finances' && <FinancesPage onSelectProject={handleSelectProject} />}
+            {activeTab === 'finances' && (
+              <FinanceWorkspace onReturnToErm={() => setActiveTab('central-dashboard')} />
+            )}
+            {(activeTab === 'hr-workforce' || activeTab === 'hr') && (
+              <HrWorkspace onReturnToErm={() => setActiveTab('central-dashboard')} />
+            )}
             {activeTab === 'on-hold' && (
               <OnHoldPage
                 onSelectProject={handleSelectProject}

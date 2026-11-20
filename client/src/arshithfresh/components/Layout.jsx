@@ -29,6 +29,10 @@ import {
   Shield,
   CheckCircle2,
   Plus,
+  ChevronDown,
+  Building2,
+  GraduationCap,
+  Layers,
 } from 'lucide-react';
 import { useAuth } from '../lib/auth.jsx';
 import { api } from '../lib/api.js';
@@ -38,6 +42,7 @@ import { CompanySwitcherDropdown } from '../../components/layout/CompanySwitcher
 const NAV = [
   ['Core Inventory', [
     ['/', 'Executive Dashboard', LayoutDashboard],
+    ['/finance-erp', 'Finance & Accounts (₹)', IndianRupee],
     ['/products', 'Products Inventory', Package, ['product.view']],
     ['/categories', 'Product Categories', Tags, ['product.view']],
     ['/suppliers', 'Suppliers Directory', Truck, ['supplier.view', 'purchase.view']],
@@ -70,15 +75,33 @@ const NAV = [
   ]],
 ];
 
+const FRESH_FINANCE_PROJECTS = [
+  { coId: '1', label: 'ArshithFresh Finance', icon: Leaf, color: 'text-green-400', badge: 'AFR' },
+  { coId: '2', label: 'Infotech Finance', icon: Building2, color: 'text-blue-400', badge: 'AIT' },
+  { coId: '3', label: 'CodeLekho Finance', icon: GraduationCap, color: 'text-purple-400', badge: 'CLK' },
+  { coId: 'all', label: 'All Companies (Consolidated)', icon: Layers, color: 'text-emerald-400', badge: 'ALL' },
+];
+
 function Sidebar({ onNavigate, unread }) {
   const { can } = useAuth();
+  const navigate = useNavigate();
+  const [financeMenuOpen, setFinanceMenuOpen] = useState(true);
+
+  const handleSelectFinance = (coId) => {
+    try {
+      localStorage.setItem('erp.company', coId);
+      window.dispatchEvent(new CustomEvent('finance-company-change', { detail: coId }));
+    } catch {}
+    navigate('/finance-erp');
+    if (onNavigate) onNavigate();
+  };
   return (
     <aside className="w-64 bg-[#101827] text-slate-300 flex flex-col flex-shrink-0 border-r border-[#1E293B] select-none shadow-2xl z-30">
       {/* Brand Header */}
       <div className="h-16 flex items-center px-4 border-b border-[#1E293B] bg-[#0B0F19]/90 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-800 flex items-center justify-center text-white font-extrabold shadow-md shadow-emerald-950/60 border border-emerald-400/30">
-            <Leaf className="w-5 h-5 text-emerald-100" />
+          <div className="w-12 h-9 rounded-xl bg-white flex items-center justify-center shadow-md p-0.5 border border-slate-700/60 overflow-hidden flex-shrink-0">
+            <img src="/logos/arshith-fresh-logo.jpg" alt="Arshith Fresh" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="font-extrabold text-[13px] tracking-wider text-white uppercase font-sans flex items-center gap-1.5">
@@ -101,7 +124,61 @@ function Sidebar({ onNavigate, unread }) {
               <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">
                 {group}
               </div>
-              {items.map(([to, label, Icon]) => (
+              {items.map(([to, label, Icon]) => {
+                if (to === '/finance-erp') {
+                  return (
+                    <div key={to} className="space-y-1">
+                      <button
+                        onClick={() => {
+                          setFinanceMenuOpen(!financeMenuOpen);
+                          handleSelectFinance('1');
+                        }}
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all group relative cursor-pointer bg-emerald-600/20 text-white font-semibold border-l-4 border-emerald-500 shadow-xs"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <Icon className="w-4 h-4 shrink-0 text-emerald-400" />
+                          <span className="truncate">{label}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                            Dropdown
+                          </span>
+                          <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${financeMenuOpen ? 'rotate-180' : ''}`} />
+                        </div>
+                      </button>
+
+                      {financeMenuOpen && (
+                        <div className="pl-6 pr-1 py-1 space-y-1 bg-slate-900/60 rounded-xl border border-slate-800">
+                          {FRESH_FINANCE_PROJECTS.map((fOpt) => {
+                            const FIcon = fOpt.icon;
+                            const isCurrentCo = localStorage.getItem('erp.company') === fOpt.coId;
+                            return (
+                              <button
+                                key={fOpt.coId}
+                                onClick={() => handleSelectFinance(fOpt.coId)}
+                                className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11px] transition-all cursor-pointer ${
+                                  isCurrentCo
+                                    ? 'bg-emerald-600/30 text-emerald-300 font-bold border border-emerald-500/30'
+                                    : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2">
+                                  <FIcon className={`w-3.5 h-3.5 ${fOpt.color}`} />
+                                  <span className="truncate">{fOpt.label}</span>
+                                </div>
+                                <span className="text-[9px] font-mono font-bold text-slate-500">
+                                  {fOpt.badge}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
                 <NavLink
                   key={to}
                   to={to}
@@ -133,7 +210,8 @@ function Sidebar({ onNavigate, unread }) {
                     </>
                   )}
                 </NavLink>
-              ))}
+              );
+            })}
             </div>
           );
         })}
@@ -272,7 +350,7 @@ export default function Layout() {
           </button>
 
           {/* Search Bar */}
-          <div className="flex items-center gap-4 flex-1 max-w-md">
+          <div className="flex items-center gap-4 flex-1 min-w-[150px] max-w-xs md:max-w-sm lg:max-w-md">
             <form
               className="relative w-full group"
               onSubmit={(e) => {
@@ -280,15 +358,15 @@ export default function Layout() {
                 nav(`/products?q=${encodeURIComponent(q)}`);
               }}
             >
-              <Search className="w-4 h-4 text-[#64748B] group-focus-within:text-[#2563EB] absolute left-3.5 top-1/2 -translate-y-1/2 transition-colors" />
+              <Search className="w-4 h-4 text-[#64748B] group-focus-within:text-[#2563EB] absolute left-3 top-1/2 -translate-y-1/2 transition-colors pointer-events-none" />
               <input
                 type="text"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Search products by name, SKU, barcode, or ID..."
-                className="w-full pl-9 pr-12 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] focus:bg-white transition-all text-[#111827] placeholder-[#64748B]"
+                placeholder="Search products..."
+                className="w-full pl-8 pr-16 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] focus:bg-white transition-all text-[#111827] placeholder-[#64748B]"
               />
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono text-[#64748B] bg-white border border-[#E2E8F0] rounded shadow-2xs">
+              <kbd className="hidden lg:inline-flex items-center gap-0.5 absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono text-[#64748B] bg-white border border-[#E2E8F0] rounded shadow-2xs pointer-events-none select-none">
                 Ctrl K
               </kbd>
             </form>

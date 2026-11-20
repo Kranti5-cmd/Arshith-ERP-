@@ -9,6 +9,7 @@ import { Purchases, PurchaseOrders, PODetail, GoodsReceived } from './pages/Purc
 import { Inventory, Batches, Warehouses } from './pages/Stock.jsx';
 import { WebsiteOrders, Sales, OrderDetail, Returns, Wastage } from './pages/Sales.jsx';
 import { Finance, Reports, Notifications, Users, Settings, Audit } from './pages/Admin.jsx';
+import { FinanceWorkspace } from '../components/finance/FinanceWorkspace';
 
 function Guard({ children }) {
   const { user, ready } = useAuth();
@@ -39,6 +40,7 @@ function App() {
             <Route path="integration" element={<Navigate to="/website-orders?tab=integration" replace />} />
             <Route path="sales" element={<Sales />} />
             <Route path="orders/:id" element={<OrderDetail />} />
+            <Route path="finance-erp" element={<FinanceWorkspace />} />
             <Route path="finance" element={<Finance />} />
             <Route path="returns" element={<Returns />} />
             <Route path="wastage" element={<Wastage />} />

@@ -1,12 +1,13 @@
 # Dependencies
 node_modules/
-client/node_modules/
-server/node_modules/
+**/node_modules/
 
 # Production Builds
 dist/
 client/dist/
 build/
+.next/
+**/.next/
 
 # Environment Variables & Secrets
 .env
@@ -27,3 +28,6 @@ Thumbs.db
 # Database / uploads / scratch
 uploads/
 pgdata/
+.pgdata/
+.pgdata*/
+**/.pgdata*/
