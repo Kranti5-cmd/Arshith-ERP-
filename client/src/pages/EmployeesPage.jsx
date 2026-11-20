@@ -79,14 +79,21 @@ export const EmployeesPage = ({ onSelectProject }) => {
   };
 
   return (
-    <div className="p-6 space-y-5 max-w-7xl mx-auto">
+    <div className="p-6 space-y-5 max-w-7xl mx-auto text-xs">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <Users className="w-5 h-5 text-blue-800" /> Employee Directory & Talent Roster
+          <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium">
+            <span>Atmosphere</span>
+            <span>&rsaquo;</span>
+            <span>Organization</span>
+            <span>&rsaquo;</span>
+            <span className="text-[#253142] font-semibold">Employees</span>
+          </div>
+          <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+            <Users className="w-6 h-6 text-[#2563EB]" /> Employee Directory & Talent Roster
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-[#7C8998] mt-0.5">
             Maintain company personnel records, skillsets, capacity commitments, and team availability.
           </p>
         </div>
@@ -94,7 +101,7 @@ export const EmployeesPage = ({ onSelectProject }) => {
         {/* Add Employee Button */}
         <button
           onClick={handleOpenAddModal}
-          className="flex items-center gap-1.5 px-3.5 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-2xl text-xs font-semibold shadow-md shadow-blue-500/25 transition-all self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Add Employee</span>
@@ -102,15 +109,15 @@ export const EmployeesPage = ({ onSelectProject }) => {
       </div>
 
       {/* Search & Filters */}
-      <div className="flex flex-wrap items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
+      <div className="flex flex-wrap items-center gap-3 bg-[#F4F7FA] p-4 rounded-3xl border border-[#DDE4EC] shadow-atmo-card">
         <div className="relative flex-1 min-w-[220px]">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#7C8998] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search by Employee ID (EMP-0101), Name, Skills (React, Python)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
+            className="w-full pl-10 pr-3 py-2 text-xs bg-[#E8EDF3]/70 border border-[#DDE4EC] rounded-xl text-[#253142] shadow-atmo-well focus:outline-none focus:border-[#2563EB]"
           />
         </div>
 
@@ -118,7 +125,7 @@ export const EmployeesPage = ({ onSelectProject }) => {
         <select
           value={departmentFilter}
           onChange={(e) => setDepartmentFilter(e.target.value)}
-          className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium"
+          className="px-3.5 py-2 text-xs bg-[#E8EDF3]/70 border border-[#DDE4EC] rounded-xl text-[#253142] font-medium shadow-atmo-well focus:outline-none focus:border-[#2563EB]"
         >
           <option value="ALL">All Departments</option>
           <option value="Executive Management">Executive Management</option>
@@ -135,7 +142,7 @@ export const EmployeesPage = ({ onSelectProject }) => {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-medium"
+          className="px-3.5 py-2 text-xs bg-[#E8EDF3]/70 border border-[#DDE4EC] rounded-xl text-[#253142] font-medium shadow-atmo-well focus:outline-none focus:border-[#2563EB]"
         >
           <option value="ALL">All Statuses</option>
           <option value="ACTIVE">Active Employees</option>

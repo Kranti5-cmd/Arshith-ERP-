@@ -19,7 +19,7 @@ import {
 
 const COMPANIES = [
   { id: 'all', name: 'All Companies', short: 'All', badge: 'Consolidated View', color: 'emerald', bg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
-  { id: '1', name: 'ArshithFresh', short: 'AFR', badge: 'Fresh Produce & Grocery', color: 'green', bg: 'bg-green-500/20 text-green-300 border-green-500/40' },
+  { id: '1', name: 'ArshithFresh', short: 'AFR', badge: 'Fresh Produce & Grocery', color: 'blue', bg: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
   { id: '2', name: 'Arshith Infotech', short: 'AIT', badge: 'Software & IT Services', color: 'blue', bg: 'bg-blue-500/20 text-blue-300 border-blue-500/40' },
   { id: '3', name: 'CodeLekho', short: 'CLK', badge: 'EdTech & Admissions', color: 'purple', bg: 'bg-purple-500/20 text-purple-300 border-purple-500/40' },
 ];
@@ -148,19 +148,19 @@ export const FinanceWorkspace = ({ onReturnToErm }) => {
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col w-full bg-[#0F172A] select-none overflow-hidden ${
+      className={`flex flex-col w-full bg-[#E8EDF3] select-none overflow-hidden ${
         isFullscreen ? 'fixed inset-0 z-50 h-screen w-screen' : 'relative h-full'
       }`}
       style={{ height: isFullscreen ? '100vh' : 'calc(100vh - 64px)' }}
     >
       {/* Sleek, Single-Row Navigation Header (42px) */}
-      <div className="bg-[#0B132B] border-b border-[#1E293B] px-3 py-1 flex items-center justify-between text-white shadow-xs z-30 shrink-0 h-[42px] gap-2">
+      <div className="bg-[#E3E9F0] border-b border-[#DDE4EC] px-4 py-1.5 flex items-center justify-between text-[#253142] shadow-atmo-card z-30 shrink-0 h-[46px] gap-2">
         {/* Left: Return button & Brand */}
         <div className="flex items-center gap-2">
           {onReturnToErm && (
             <button
               onClick={onReturnToErm}
-              className="flex items-center gap-1.5 px-2.5 py-1 bg-[#1E293B] hover:bg-[#334155] text-slate-200 hover:text-white border border-slate-700 rounded-lg text-xs font-semibold transition-all cursor-pointer group"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[#E8EDF3] hover:bg-[#DDE4EC] text-[#253142] border border-[#DDE4EC] rounded-xl text-xs font-semibold shadow-atmo-btn transition-all cursor-pointer group"
               title="Return to Main Portal"
             >
               <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" />
@@ -169,25 +169,25 @@ export const FinanceWorkspace = ({ onReturnToErm }) => {
           )}
 
           <div className="flex items-center gap-1.5">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center font-bold text-white shadow-xs">
+            <div className="w-6 h-6 rounded-lg bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] flex items-center justify-center font-bold shadow-atmo-btn">
               <IndianRupee className="w-3.5 h-3.5" />
             </div>
-            <span className="font-extrabold text-xs tracking-wider text-white uppercase hidden md:inline">
-              Arshith <span className="text-emerald-400">Finance ERP</span>
+            <span className="font-extrabold text-xs tracking-wider text-[#253142] uppercase hidden md:inline">
+              Arshith <span className="text-[#2563EB]">Finance ERP</span>
             </span>
           </div>
         </div>
 
         {/* Center: The Core Company Selector Dropdown + Quick Badges */}
-        <div className="flex items-center gap-1.5 bg-[#141E33] px-2 py-0.5 rounded-lg border border-slate-700/80">
-          <Building2 className="w-3.5 h-3.5 text-emerald-400" />
-          <span className="text-xs font-semibold text-slate-300 hidden sm:inline">Company:</span>
+        <div className="flex items-center gap-1.5 bg-[#E8EDF3]/80 px-2.5 py-1 rounded-xl border border-[#DDE4EC] shadow-atmo-well">
+          <Building2 className="w-3.5 h-3.5 text-[#2563EB]" />
+          <span className="text-xs font-semibold text-[#7C8998] hidden sm:inline">Company:</span>
 
           <select
             aria-label="Select Company"
             value={selectedCompany}
             onChange={(e) => handleSelectCompany(e.target.value)}
-            className="bg-[#0B132B] text-white font-bold text-xs px-2.5 py-1 rounded-md border border-slate-600 focus:outline-none focus:border-emerald-500 cursor-pointer shadow-xs"
+            className="bg-white text-[#253142] font-bold text-xs px-2.5 py-1 rounded-xl border border-[#DDE4EC] shadow-atmo-btn focus:outline-none focus:border-[#2563EB] cursor-pointer"
             style={{ minWidth: 155 }}
           >
             <option value="all">🌐 All Companies (Consolidated)</option>

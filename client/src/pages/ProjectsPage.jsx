@@ -30,27 +30,27 @@ const formatINR = (val) => {
   return `₹${num.toLocaleString('en-IN')}`;
 };
 
-// Semantic status badges according to user specification (No green)
+// Semantic status badges according to Atmosphere specification
 const STATUS_BADGES = {
-  NEW: { badge: 'bg-sky-50 text-sky-700 border-sky-200', dot: 'bg-sky-500' },
+  NEW: { badge: 'bg-blue-50 text-[#2563EB] border-blue-200', dot: 'bg-[#2563EB]' },
   UNDER_REVIEW: { badge: 'bg-indigo-50 text-indigo-700 border-indigo-200', dot: 'bg-indigo-500' },
-  ACCEPTED: { badge: 'bg-blue-50 text-blue-700 border-blue-200', dot: 'bg-blue-600' },
-  APPROVED: { badge: 'bg-blue-50 text-blue-800 border-blue-300', dot: 'bg-blue-700' },
-  ASSIGNED: { badge: 'bg-slate-100 text-slate-800 border-slate-300', dot: 'bg-slate-600' },
-  IN_PROGRESS: { badge: 'bg-blue-900 text-white border-blue-950', dot: 'bg-sky-400' },
+  ACCEPTED: { badge: 'bg-sky-50 text-sky-700 border-sky-200', dot: 'bg-sky-600' },
+  APPROVED: { badge: 'bg-sky-50 text-sky-800 border-sky-300', dot: 'bg-sky-700' },
+  ASSIGNED: { badge: 'bg-slate-100 text-[#253142] border-slate-300', dot: 'bg-[#7C8998]' },
+  IN_PROGRESS: { badge: 'bg-blue-50 text-[#2563EB] border-orange-300', dot: 'bg-[#2563EB]' },
   TESTING: { badge: 'bg-amber-50 text-amber-700 border-amber-200', dot: 'bg-amber-500' },
   ON_HOLD: { badge: 'bg-amber-100 text-amber-900 border-amber-300', dot: 'bg-amber-600' },
-  COMPLETED: { badge: 'bg-teal-50 text-teal-700 border-teal-200', dot: 'bg-teal-600' },
-  DELIVERED: { badge: 'bg-teal-100 text-teal-900 border-teal-300', dot: 'bg-teal-700' },
-  CANCELLED: { badge: 'bg-slate-100 text-slate-700 border-slate-300', dot: 'bg-slate-500' },
+  COMPLETED: { badge: 'bg-emerald-50 text-emerald-700 border-emerald-200', dot: 'bg-emerald-600' },
+  DELIVERED: { badge: 'bg-emerald-100 text-emerald-900 border-emerald-300', dot: 'bg-emerald-700' },
+  CANCELLED: { badge: 'bg-slate-100 text-[#7C8998] border-slate-300', dot: 'bg-[#A0ACBA]' },
   REJECTED: { badge: 'bg-rose-50 text-rose-700 border-rose-200', dot: 'bg-rose-600' },
 };
 
 const PRIORITY_BADGES = {
   CRITICAL: 'bg-rose-100 text-rose-800 border-rose-200',
   HIGH: 'bg-amber-100 text-amber-800 border-amber-200',
-  MEDIUM: 'bg-blue-100 text-blue-800 border-blue-200',
-  LOW: 'bg-slate-100 text-slate-700 border-slate-200',
+  MEDIUM: 'bg-blue-50 text-[#2563EB] border-blue-200',
+  LOW: 'bg-slate-100 text-[#7C8998] border-slate-200',
 };
 
 export const ProjectsPage = ({
@@ -176,55 +176,63 @@ export const ProjectsPage = ({
   ];
 
   return (
-    <div className="p-6 md:p-8 space-y-6 max-w-[1600px] mx-auto text-[#111827]">
-      {/* 1. Header with Title & Quick CTA (Navy / Blue accents) */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E2E8F0]">
-        <div>
+    <div className="p-6 md:p-8 space-y-6 max-w-[1600px] mx-auto text-[#253142] font-sans">
+      
+      {/* 1. Atmosphere Page Title & Header Actions */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#7C8998]">
+            <span>Atmosphere</span>
+            <span>&gt;</span>
+            <span>Portfolio</span>
+            <span>&gt;</span>
+            <span className="text-[#253142] font-bold">Projects Inventory</span>
+          </div>
           <div className="flex items-center gap-2.5">
-            <h1 className="text-2xl font-black text-[#111827] tracking-tight font-sans">
-              Project Inventory & Portfolio Repository
+            <h1 className="text-2xl md:text-3xl font-extrabold text-[#253142] tracking-tight font-sans">
+              Projects Repository
             </h1>
-            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 border border-blue-300">
+            <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-[#F4F7FA] text-[#7C8998] border border-[#DDE4EC] shadow-atmo-card-sm font-mono">
               {projects.length} Records
             </span>
           </div>
-          <p className="text-xs text-[#64748B] mt-1">
+          <p className="text-xs text-[#7C8998]">
             Central repository for contract specifications, budgets, milestone execution, and client deliveries.
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 self-start sm:self-auto">
+        <div className="flex items-center gap-3 self-start sm:self-auto flex-wrap">
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-white border border-[#E2E8F0] hover:bg-slate-50 text-[#111827] rounded-xl text-xs font-semibold shadow-xs transition-colors"
+            className="atmo-btn-secondary"
           >
-            <Download className="w-4 h-4 text-[#64748B]" />
+            <Download className="w-4 h-4 text-[#7C8998]" />
             <span>Export CSV</span>
           </button>
 
           <button
             onClick={onOpenNewProjectModal}
-            className="flex items-center gap-2 px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-xl text-xs font-bold shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+            className="atmo-btn-primary"
           >
             <Plus className="w-4 h-4" />
-            <span>Add Project</span>
+            <span>Add project</span>
           </button>
         </div>
       </div>
 
-      {/* 2. Status Category Pill Filter Bar */}
-      <div className="border-b border-[#E2E8F0] overflow-x-auto pb-1 scrollbar-none">
-        <div className="flex items-center gap-1.5 min-w-max py-0.5">
+      {/* 2. Atmosphere Status Pill Ribbon */}
+      <div className="atmo-well p-1.5 rounded-2xl overflow-x-auto scrollbar-none">
+        <div className="flex items-center gap-1 min-w-max">
           {statusTabButtons.map((tab) => {
             const isActive = statusFilter === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setStatusFilter(tab.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-[#101827] text-white shadow-sm'
-                    : 'text-[#64748B] hover:bg-slate-100 hover:text-[#111827]'
+                    ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
+                    : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
                 }`}
               >
                 {tab.label}
@@ -234,75 +242,81 @@ export const ProjectsPage = ({
         </div>
       </div>
 
-      {/* 3. Search & Secondary Filters Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-[#E2E8F0] shadow-xs">
-        {/* Search */}
+      {/* 3. Search & Secondary Filters Toolbar (Atmosphere Card) */}
+      <div className="atmo-card p-4 flex flex-wrap items-center justify-between gap-3">
+        {/* Recessed Well Search */}
         <div className="relative flex-1 min-w-[260px]">
-          <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#7C8998] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder="Search projects by ID, title, client company, tech stack..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-8 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] focus:bg-white text-[#111827] placeholder-[#64748B] font-medium"
+            className="w-full pl-10 pr-8 py-2 text-xs bg-[#E2E8F0] border border-[#DDE4EC] rounded-2xl shadow-atmo-well focus:outline-none focus:ring-2 focus:ring-[#2563EB]/25 focus:border-[#2563EB] focus:bg-white text-[#253142] placeholder-[#A0ACBA] font-medium transition-all"
           />
           {searchTerm && (
             <button
               onClick={() => setSearchTerm('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-[#111827] p-1"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#7C8998] hover:text-[#253142] p-1 cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
-        {/* Dropdowns */}
+        {/* Dropdowns in Recessed Wells */}
         <div className="flex items-center gap-2 flex-wrap">
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-xl text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#2563EB] font-medium"
-          >
-            <option value="ALL">All Categories</option>
-            <option value="Enterprise Web Application">Enterprise Web</option>
-            <option value="FinTech & Banking Solutions">FinTech & Banking</option>
-            <option value="Healthcare & Telemedicine">Healthcare</option>
-            <option value="Supply Chain & Logistics">Supply Chain</option>
-            <option value="AI & Machine Learning Solutions">AI / ML</option>
-            <option value="Smart City & Public Infrastructure">Smart City</option>
-          </select>
+          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl">
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
+            >
+              <option value="ALL">All Categories</option>
+              <option value="Enterprise Web Application">Enterprise Web</option>
+              <option value="FinTech & Banking Solutions">FinTech & Banking</option>
+              <option value="Healthcare & Telemedicine">Healthcare</option>
+              <option value="Supply Chain & Logistics">Supply Chain</option>
+              <option value="AI & Machine Learning Solutions">AI / ML</option>
+              <option value="Smart City & Public Infrastructure">Smart City</option>
+            </select>
+          </div>
 
-          <select
-            value={priorityFilter}
-            onChange={(e) => setPriorityFilter(e.target.value)}
-            className="px-3 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-xl text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#2563EB] font-medium"
-          >
-            <option value="ALL">All Priorities</option>
-            <option value="CRITICAL">Critical Priority</option>
-            <option value="HIGH">High Priority</option>
-            <option value="MEDIUM">Medium Priority</option>
-            <option value="LOW">Low Priority</option>
-          </select>
+          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl">
+            <select
+              value={priorityFilter}
+              onChange={(e) => setPriorityFilter(e.target.value)}
+              className="bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
+            >
+              <option value="ALL">All Priorities</option>
+              <option value="CRITICAL">Critical Priority</option>
+              <option value="HIGH">High Priority</option>
+              <option value="MEDIUM">Medium Priority</option>
+              <option value="LOW">Low Priority</option>
+            </select>
+          </div>
 
-          <select
-            value={`${sortBy}-${sortOrder}`}
-            onChange={(e) => {
-              const [sb, so] = e.target.value.split('-');
-              setSortBy(sb);
-              setSortOrder(so);
-            }}
-            className="px-3 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-xl text-[#111827] focus:outline-none focus:ring-1 focus:ring-[#2563EB] font-medium"
-          >
-            <option value="createdAt-desc">Newest First</option>
-            <option value="projectId-asc">Project ID (Asc)</option>
-            <option value="approvedBudget-desc">Highest Budget</option>
-            <option value="completionPercentage-desc">Highest Progress</option>
-            <option value="expectedCompletionDate-asc">Target Deadline (Earliest)</option>
-          </select>
+          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl">
+            <select
+              value={`${sortBy}-${sortOrder}`}
+              onChange={(e) => {
+                const [sb, so] = e.target.value.split('-');
+                setSortBy(sb);
+                setSortOrder(so);
+              }}
+              className="bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
+            >
+              <option value="createdAt-desc">Newest First</option>
+              <option value="projectId-asc">Project ID (Asc)</option>
+              <option value="approvedBudget-desc">Highest Budget</option>
+              <option value="completionPercentage-desc">Highest Progress</option>
+              <option value="expectedCompletionDate-asc">Target Deadline (Earliest)</option>
+            </select>
+          </div>
 
           <button
             onClick={fetchProjects}
-            className="p-2 border border-[#E2E8F0] rounded-xl text-[#64748B] hover:bg-slate-50 shadow-2xs"
+            className="atmo-btn-icon"
             title="Refresh List"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[#2563EB]' : ''}`} />
@@ -310,11 +324,11 @@ export const ProjectsPage = ({
         </div>
       </div>
 
-      {/* 4. Main Projects Data Grid (Pure White Card, Silver Borders) */}
-      <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+      {/* 4. Main Projects Data Grid (Atmosphere Neumorphic Card) */}
+      <div className="atmo-card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#F8FAFC] border-b border-[#E2E8F0] text-[#64748B] font-semibold uppercase tracking-wider text-[11px] select-none">
+            <thead className="bg-[#E2E8F0] border-b border-[#DDE4EC] text-[#7C8998] font-bold uppercase tracking-wider text-[11px] select-none font-mono">
               <tr>
                 <th className="py-3.5 px-4">Project ID</th>
                 <th className="py-3.5 px-4">Project Title & Category</th>
@@ -325,32 +339,32 @@ export const ProjectsPage = ({
                 <th className="py-3.5 px-4">Progress</th>
                 <th className="py-3.5 px-4">Status</th>
                 <th className="py-3.5 px-4">Timeline</th>
-                <th className="py-3.5 px-4 text-center sticky right-0 bg-[#F8FAFC] backdrop-blur-xs border-l border-[#E2E8F0] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] z-10 min-w-[150px]">
+                <th className="py-3.5 px-4 text-center sticky right-0 bg-[#E2E8F0] backdrop-blur-xs border-l border-[#DDE4EC] shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] z-10 min-w-[150px]">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#DDE4EC]">
               {loading ? (
                 <tr>
-                  <td colSpan={10} className="py-16 text-center text-[#64748B]">
+                  <td colSpan={10} className="py-16 text-center text-[#7C8998]">
                     <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-[#2563EB]" />
                     Loading portfolio records...
                   </td>
                 </tr>
               ) : projects.length === 0 ? (
                 <tr>
-                  <td colSpan={10} className="py-16 text-center text-[#64748B]">
-                    <div className="w-12 h-12 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center mx-auto mb-3 text-[#2563EB]">
+                  <td colSpan={10} className="py-16 text-center text-[#7C8998]">
+                    <div className="w-12 h-12 rounded-2xl bg-[#E2E8F0] border border-[#DDE4EC] flex items-center justify-center mx-auto mb-3 text-[#2563EB] shadow-atmo-well">
                       <FolderGit2 className="w-6 h-6" />
                     </div>
-                    <div className="font-bold text-[#111827] text-sm">No Projects in Portfolio (0 Records)</div>
-                    <div className="text-xs text-[#64748B] max-w-md mx-auto mt-1 mb-4">
+                    <div className="font-bold text-[#253142] text-sm">No Projects in Portfolio (0 Records)</div>
+                    <div className="text-xs text-[#7C8998] max-w-md mx-auto mt-1 mb-4">
                       The project repository is currently empty. Start building your portfolio by registering your first company project.
                     </div>
                     <button
                       onClick={onOpenNewProjectModal}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-xl text-xs font-bold shadow-md transition-all"
+                      className="atmo-btn-primary"
                     >
                       <Plus className="w-4 h-4" />
                       <span>Add First Project</span>
@@ -360,14 +374,14 @@ export const ProjectsPage = ({
               ) : (
                 projects.map((p) => {
                   const isOverdue = p.isOverdue;
-                  const statusConf = STATUS_BADGES[p.status] || { badge: 'bg-slate-100 text-slate-700', dot: 'bg-slate-400' };
-                  const priorityClass = PRIORITY_BADGES[p.priority] || 'bg-slate-100 text-slate-700';
+                  const statusConf = STATUS_BADGES[p.status] || { badge: 'bg-slate-100 text-[#7C8998]', dot: 'bg-slate-400' };
+                  const priorityClass = PRIORITY_BADGES[p.priority] || 'bg-slate-100 text-[#7C8998]';
 
                   return (
                     <tr
                       key={p.id}
-                      className={`group hover:bg-[#F8FAFC] transition-colors ${
-                        isOverdue ? 'bg-red-50/20' : ''
+                      className={`group hover:bg-white/80 transition-colors ${
+                        isOverdue ? 'bg-rose-50/30' : ''
                       }`}
                     >
                       {/* Project ID */}
@@ -376,7 +390,7 @@ export const ProjectsPage = ({
                           onClick={() => onSelectProject(p.id)}
                           className="hover:text-[#2563EB] transition-colors"
                         >
-                          <span className="inline-flex items-center px-2.5 py-1 rounded-md font-mono font-bold text-xs bg-[#F5F7FA] text-[#111827] border border-[#E2E8F0] group-hover:border-blue-400 group-hover:text-[#2563EB] group-hover:bg-blue-50/50 transition-all">
+                          <span className="inline-flex items-center px-2.5 py-1 rounded-xl font-mono font-bold text-xs bg-white text-[#253142] border border-[#DDE4EC] group-hover:border-[#2563EB] group-hover:text-[#2563EB] shadow-2xs transition-all">
                             {p.projectId}
                           </span>
                         </button>
@@ -387,33 +401,33 @@ export const ProjectsPage = ({
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => onSelectProject(p.id)}
-                            className="font-bold text-[#111827] hover:text-[#2563EB] text-left line-clamp-1 transition-colors text-xs"
+                            className="font-bold text-[#253142] hover:text-[#2563EB] text-left line-clamp-1 transition-colors text-xs"
                           >
                             {p.title}
                           </button>
-                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold border uppercase shrink-0 ${priorityClass}`}>
+                          <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold border uppercase shrink-0 font-mono ${priorityClass}`}>
                             {p.priority}
                           </span>
                         </div>
-                        <div className="text-[10px] text-[#64748B] font-medium truncate mt-0.5">
+                        <div className="text-[10px] text-[#7C8998] font-medium truncate mt-0.5">
                           {p.categoryName || 'Enterprise Solutions'}
                         </div>
                       </td>
 
                       {/* Client Company */}
-                      <td className="py-3.5 px-4 font-medium text-[#111827] max-w-[170px]">
+                      <td className="py-3.5 px-4 font-medium text-[#253142] max-w-[170px]">
                         <div className="flex items-center gap-1.5 truncate">
-                          <Building2 className="w-3.5 h-3.5 text-[#64748B] shrink-0" />
+                          <Building2 className="w-3.5 h-3.5 text-[#7C8998] shrink-0" />
                           <span className="truncate">{p.client ? p.client.companyName : 'N/A'}</span>
                         </div>
                       </td>
 
                       {/* Manager */}
-                      <td className="py-3.5 px-4 text-[#64748B]">
+                      <td className="py-3.5 px-4 text-[#7C8998]">
                         {p.projectManager ? (
-                          <span className="font-semibold text-[#111827]">{p.projectManager.name}</span>
+                          <span className="font-semibold text-[#253142]">{p.projectManager.name}</span>
                         ) : (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium text-[#64748B] bg-[#F5F7FA] border border-[#E2E8F0] italic">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium text-[#A0ACBA] bg-[#E2E8F0] border border-[#DDE4EC] italic">
                             Unassigned
                           </span>
                         )}
@@ -421,40 +435,38 @@ export const ProjectsPage = ({
 
                       {/* Team count */}
                       <td className="py-3.5 px-4 text-center">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#F5F7FA] text-[#64748B] text-[10px] font-semibold border border-[#E2E8F0]">
-                          <Users className="w-3 h-3 text-[#64748B]" />
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white text-[#7C8998] text-[10px] font-semibold border border-[#DDE4EC] shadow-2xs">
+                          <Users className="w-3 h-3 text-[#7C8998]" />
                           {p.activeAssignmentsCount || 0}
                         </span>
                       </td>
 
                       {/* Approved Budget */}
-                      <td className="py-3.5 px-4 font-mono font-bold text-[#111827]">
+                      <td className="py-3.5 px-4 font-mono font-bold text-[#253142]">
                         {formatINR(p.approvedBudget)}
                       </td>
 
-                      {/* Progress (BLUE BAR) */}
+                      {/* Progress */}
                       <td className="py-3.5 px-4 min-w-[110px]">
-                        <div className="flex items-center justify-between text-[10px] font-mono font-bold text-[#111827] mb-1">
+                        <div className="flex items-center justify-between text-[10px] font-mono font-bold text-[#253142] mb-1">
                           <span>{p.completionPercentage}%</span>
                         </div>
-                        <div className="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden">
+                        <div className="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden shadow-atmo-well">
                           <div
                             className={`h-full rounded-full transition-all duration-300 ${
                               p.completionPercentage === 100
-                                ? 'bg-teal-600'
-                                : p.completionPercentage > 50
-                                ? 'bg-[#2563EB]'
-                                : 'bg-sky-500'
+                                ? 'bg-emerald-500'
+                                : 'bg-[#2563EB]'
                             }`}
                             style={{ width: `${p.completionPercentage}%` }}
                           ></div>
                         </div>
                       </td>
 
-                      {/* Status with pulsating dot */}
+                      {/* Status */}
                       <td className="py-3.5 px-4">
                         <span
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border tracking-wide uppercase ${statusConf.badge}`}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold border tracking-wide uppercase font-mono ${statusConf.badge}`}
                         >
                           <span className={`w-1.5 h-1.5 rounded-full ${statusConf.dot}`}></span>
                           <span>{p.status.replace(/_/g, ' ')}</span>
@@ -468,41 +480,41 @@ export const ProjectsPage = ({
                             <AlertTriangle className="w-3 h-3" /> {p.expectedCompletionDate}
                           </span>
                         ) : (
-                          <span className="text-[#64748B]">{p.expectedCompletionDate || '—'}</span>
+                          <span className="text-[#7C8998]">{p.expectedCompletionDate || '—'}</span>
                         )}
                       </td>
 
-                      {/* Actions (Sticky Right Column) */}
+                      {/* Actions */}
                       <td
-                        className={`py-3.5 px-4 text-center sticky right-0 border-l border-[#E2E8F0] ${
-                          isOverdue ? 'bg-[#fff5f5] group-hover:bg-[#ffeded]' : 'bg-white group-hover:bg-[#F8FAFC]'
+                        className={`py-3.5 px-4 text-center sticky right-0 border-l border-[#DDE4EC] ${
+                          isOverdue ? 'bg-rose-50/50' : 'bg-[#F4F7FA] group-hover:bg-white'
                         } shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] z-10 min-w-[150px]`}
                       >
                         <div className="flex items-center justify-center gap-1">
                           <button
                             onClick={() => onSelectProject(p.id)}
-                            className="p-1.5 text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 rounded-lg transition-colors"
+                            className="p-1.5 text-[#7C8998] hover:text-[#2563EB] hover:bg-blue-50 rounded-xl transition-colors cursor-pointer"
                             title="Open Project Workspace"
                           >
                             <Eye className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => onOpenEditModal(p)}
-                            className="p-1.5 text-[#64748B] hover:text-[#2563EB] hover:bg-blue-50 rounded-lg transition-colors"
+                            className="p-1.5 text-[#7C8998] hover:text-[#2563EB] hover:bg-blue-50 rounded-xl transition-colors cursor-pointer"
                             title="Edit Project"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleArchive(p)}
-                            className="p-1.5 text-[#64748B] hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors"
+                            className="p-1.5 text-[#7C8998] hover:text-amber-700 hover:bg-amber-50 rounded-xl transition-colors cursor-pointer"
                             title="Archive Project"
                           >
                             <Archive className="w-3.5 h-3.5" />
                           </button>
                           <button
                             onClick={() => handleDelete(p)}
-                            className="p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg transition-colors"
+                            className="p-1.5 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
                             title="Delete Project"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -518,9 +530,9 @@ export const ProjectsPage = ({
         </div>
 
         {/* Footer info */}
-        <div className="py-3 px-5 bg-[#F8FAFC] border-t border-[#E2E8F0] flex items-center justify-between text-xs text-[#64748B]">
+        <div className="py-3.5 px-5 bg-[#E2E8F0]/40 border-t border-[#DDE4EC] flex items-center justify-between text-xs text-[#7C8998]">
           <span className="font-medium">Displaying {projects.length} managed project records</span>
-          <span className="font-mono text-[11px] text-[#64748B]">Arshith Infotech Portfolio System</span>
+          <span className="font-mono text-[11px] text-[#A0ACBA]">Arshith Infotech Portfolio OS</span>
         </div>
       </div>
     </div>

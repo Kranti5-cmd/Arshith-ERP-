@@ -360,27 +360,27 @@ export const ProjectDetailsPage = ({
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       {/* Top Breadcrumb & Action Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#DDE4EC]">
         <div className="flex items-center gap-3">
           <button
             onClick={onBack}
-            className="p-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg transition-colors shadow-2xs"
+            className="p-2.5 bg-[#E8EDF3] border border-[#DDE4EC] hover:bg-[#DDE4EC] text-[#253142] rounded-2xl transition-all shadow-atmo-btn"
             title="Back to list"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-blue-800 px-2 py-0.5 rounded bg-blue-100 border border-blue-200">
+              <span className="font-mono text-xs font-bold text-[#2563EB] px-2.5 py-0.5 rounded-full bg-[#EFF6FF] border border-[#BFDBFE]">
                 {p.projectId}
               </span>
-              <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-800 border border-slate-200">
+              <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-[#E8EDF3] text-[#253142] border border-[#DDE4EC]">
                 {p.status.replace(/_/g, ' ')}
               </span>
-              <span className="text-xs text-slate-400">•</span>
-              <span className="text-xs text-slate-500 font-medium">{p.categoryName}</span>
+              <span className="text-xs text-[#A0ACBA]">•</span>
+              <span className="text-xs text-[#7C8998] font-medium">{p.categoryName}</span>
             </div>
-            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight mt-1">{p.title}</h1>
+            <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight mt-1">{p.title}</h1>
           </div>
         </div>
 
@@ -389,7 +389,7 @@ export const ProjectDetailsPage = ({
           {/* Change Status Modal trigger */}
           <button
             onClick={() => onOpenStatusModal(p)}
-            className="px-3 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+            className="px-3.5 py-2 bg-[#E8EDF3] border border-[#DDE4EC] hover:bg-[#DDE4EC] text-[#253142] rounded-2xl text-xs font-semibold shadow-atmo-btn transition-all"
           >
             Update Status
           </button>
@@ -398,7 +398,7 @@ export const ProjectDetailsPage = ({
           {p.status === 'ON_HOLD' ? (
             <button
               onClick={() => onOpenResumeModal(p)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-800 text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-2xl text-xs font-semibold shadow-md shadow-blue-500/25 transition-all"
             >
               <PlayCircle className="w-3.5 h-3.5" />
               <span>Resume Project</span>
@@ -406,7 +406,7 @@ export const ProjectDetailsPage = ({
           ) : (
             <button
               onClick={() => onOpenHoldModal(p)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 border border-amber-300 hover:bg-amber-100 text-amber-800 rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-amber-500/10 border border-amber-300 hover:bg-amber-500/20 text-amber-800 rounded-2xl text-xs font-semibold transition-all"
             >
               <PauseCircle className="w-3.5 h-3.5" />
               <span>Place On Hold</span>
@@ -417,7 +417,7 @@ export const ProjectDetailsPage = ({
           {p.status !== 'COMPLETED' && p.status !== 'DELIVERED' && (
             <button
               onClick={() => onOpenCompleteModal(p)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-green-700 hover:bg-green-800 text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-xs font-semibold shadow-sm transition-all"
             >
               <CheckCircle2 className="w-3.5 h-3.5" />
               <span>Complete Project</span>
@@ -428,7 +428,7 @@ export const ProjectDetailsPage = ({
           {p.status === 'COMPLETED' && (
             <button
               onClick={() => onOpenDeliverModal(p)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-700 hover:bg-teal-800 text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-2xl text-xs font-semibold shadow-sm transition-all"
             >
               <Truck className="w-3.5 h-3.5" />
               <span>Deliver to Client</span>
@@ -437,7 +437,7 @@ export const ProjectDetailsPage = ({
 
           <button
             onClick={() => onOpenEditModal(p)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-2xl text-xs font-semibold shadow-md shadow-blue-500/25 transition-all"
           >
             <Edit2 className="w-3.5 h-3.5" />
             <span>Edit Project</span>
@@ -445,7 +445,7 @@ export const ProjectDetailsPage = ({
 
           <button
             onClick={handleDeleteProject}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-700 rounded-2xl text-xs font-semibold transition-all"
             title="Permanently delete project"
           >
             <Trash2 className="w-3.5 h-3.5 text-rose-600" />
@@ -455,72 +455,70 @@ export const ProjectDetailsPage = ({
       </div>
 
       {/* Progress & Quick Stats Banner */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 text-xs">
+      <div className="bg-[#F4F7FA] p-5 rounded-3xl border border-[#DDE4EC] shadow-atmo-card grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4 text-xs">
         <div>
-          <div className="text-slate-400 text-[11px]">Client Company</div>
-          <div className="font-bold text-slate-900 mt-0.5 truncate">{p.client?.companyName || 'N/A'}</div>
-          <div className="text-[10px] text-slate-500 truncate">{p.client?.contactPerson}</div>
+          <div className="text-[#7C8998] text-[11px] font-medium">Client Company</div>
+          <div className="font-bold text-[#253142] mt-0.5 truncate">{p.client?.companyName || 'N/A'}</div>
+          <div className="text-[10px] text-[#A0ACBA] truncate">{p.client?.contactPerson}</div>
         </div>
 
         <div>
-          <div className="text-slate-400 text-[11px]">Project Manager</div>
-          <div className="font-bold text-slate-900 mt-0.5">{p.projectManager?.name || 'Unassigned'}</div>
-          <div className="text-[10px] text-slate-500">{p.projectManager?.email || '—'}</div>
+          <div className="text-[#7C8998] text-[11px] font-medium">Project Manager</div>
+          <div className="font-bold text-[#253142] mt-0.5">{p.projectManager?.name || 'Unassigned'}</div>
+          <div className="text-[10px] text-[#A0ACBA]">{p.projectManager?.email || '—'}</div>
         </div>
 
         <div>
-          <div className="text-slate-400 text-[11px]">Approved Budget</div>
-          <div className="font-bold text-blue-800 mt-0.5 font-sans">{formatINR(p.approvedBudget)}</div>
-          <div className="text-[10px] text-slate-500">Spend: {formatINR(p.actualDevCost)}</div>
+          <div className="text-[#7C8998] text-[11px] font-medium">Approved Budget</div>
+          <div className="font-bold text-[#2563EB] mt-0.5 font-sans">{formatINR(p.approvedBudget)}</div>
+          <div className="text-[10px] text-[#A0ACBA]">Spend: {formatINR(p.actualDevCost)}</div>
         </div>
 
         <div>
-          <div className="text-slate-400 text-[11px]">Target Deadline</div>
-          <div className="font-bold text-slate-900 mt-0.5">{p.expectedCompletionDate || 'Not set'}</div>
-          <div className="text-[10px] text-slate-500">Start: {p.plannedStartDate || 'N/A'}</div>
+          <div className="text-[#7C8998] text-[11px] font-medium">Target Deadline</div>
+          <div className="font-bold text-[#253142] mt-0.5">{p.expectedCompletionDate || 'Not set'}</div>
+          <div className="text-[10px] text-[#A0ACBA]">Start: {p.plannedStartDate || 'N/A'}</div>
         </div>
 
         <div className="col-span-2">
           <div className="flex items-center justify-between text-[11px] mb-1">
-            <span className="text-slate-500 font-medium">Completion Progress</span>
-            <span className="font-extrabold text-blue-800">{p.completionPercentage}%</span>
+            <span className="text-[#7C8998] font-medium">Completion Progress</span>
+            <span className="font-extrabold text-[#2563EB]">{p.completionPercentage}%</span>
           </div>
-          <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+          <div className="w-full bg-[#E8EDF3] rounded-full h-2.5 overflow-hidden border border-[#DDE4EC] shadow-atmo-well">
             <div
-              className="bg-blue-600 h-full rounded-full transition-all duration-500"
+              className="bg-[#2563EB] h-full rounded-full transition-all duration-500"
               style={{ width: `${p.completionPercentage}%` }}
             ></div>
           </div>
-          <div className="text-[10px] text-slate-400 mt-1 truncate">Current Phase: {p.currentPhase}</div>
+          <div className="text-[10px] text-[#7C8998] mt-1.5 truncate">Current Phase: {p.currentPhase}</div>
         </div>
       </div>
 
       {/* 8 TABS NAVIGATION */}
-      <div className="border-b border-slate-200">
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          {tabs.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3.5 py-2.5 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${
-                  isActive
-                    ? 'border-blue-600 text-blue-900 bg-blue-50/50 rounded-t-lg'
-                    : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600' : 'text-slate-400'}`} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
+      <div className="bg-[#E3E9F0]/80 p-1.5 rounded-2xl border border-[#DDE4EC] shadow-atmo-well flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl transition-all whitespace-nowrap ${
+                isActive
+                  ? 'bg-white text-[#253142] shadow-atmo-btn'
+                  : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/40'
+              }`}
+            >
+              <Icon className={`w-4 h-4 ${isActive ? 'text-[#2563EB]' : 'text-[#7C8998]'}`} />
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* TAB CONTENT PANELS */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-2xs p-6">
+      <div className="bg-[#F4F7FA] rounded-3xl border border-[#DDE4EC] shadow-atmo-card p-6">
         {/* ================= TAB 1: OVERVIEW ================= */}
         {activeTab === 'overview' && (
           <div className="space-y-6 text-xs">

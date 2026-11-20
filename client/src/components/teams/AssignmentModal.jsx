@@ -175,26 +175,26 @@ export const AssignmentModal = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 overflow-y-auto max-h-[90vh]">
+    <div className="fixed inset-0 bg-[#253142]/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+      <div className="bg-[#F4F7FA] rounded-3xl max-w-lg w-full p-6 shadow-atmo-card-lg border border-[#DDE4EC] overflow-y-auto max-h-[90vh]">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+        <div className="flex items-center justify-between pb-3 border-b border-[#DDE4EC]">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-blue-100 text-blue-800">
+            <div className="p-2 rounded-2xl bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] shadow-atmo-btn">
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-slate-900">
+              <h2 className="text-base font-bold text-[#253142]">
                 {assignment ? 'Edit Project Team Assignment' : 'Assign Employee to Project'}
               </h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#7C8998]">
                 Allocate developer capacity, define responsibility scope and set release dates
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+            className="p-1.5 text-[#A0ACBA] hover:text-[#253142] rounded-xl hover:bg-[#E8EDF3] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -359,18 +359,18 @@ export const AssignmentModal = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-200">
+          <div className="flex items-center justify-end gap-2.5 pt-4 border-t border-[#DDE4EC]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium transition-colors"
+              className="px-4 py-2 border border-[#DDE4EC] bg-[#E8EDF3] hover:bg-[#DDE4EC] text-[#253142] rounded-2xl font-medium transition-all"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex items-center gap-1.5 px-4 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-lg font-semibold shadow-xs transition-colors disabled:opacity-60"
+              className="flex items-center gap-1.5 px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-2xl font-semibold shadow-md shadow-blue-500/25 transition-all disabled:opacity-60"
             >
               <Save className="w-3.5 h-3.5" />
               <span>{loading ? 'Saving...' : assignment ? 'Update Assignment' : 'Assign Employee'}</span>

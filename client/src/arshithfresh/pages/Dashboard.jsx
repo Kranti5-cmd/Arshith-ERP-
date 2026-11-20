@@ -88,8 +88,8 @@ export default function Dashboard() {
     { id: 'qc', label: '5. Quality Check', count: 0, icon: FlaskConical, color: 'text-slate-700 bg-slate-100 border-slate-300', link: '/inventory' },
     { id: 'stock', label: '6. Warehouse Stocked', count: k.totalProducts || 0, icon: Boxes, color: 'text-blue-900 bg-blue-100 border-blue-300', link: '/inventory' },
     { id: 'packing', label: '7. Batch Packaging', count: 0, icon: Tags, color: 'text-amber-700 bg-amber-50 border-amber-200', link: '/batches' },
-    { id: 'dispatch', label: '8. Sales Dispatched', count: k.todaysSalesCount || 0, icon: Receipt, color: 'text-teal-700 bg-teal-50 border-teal-200', link: '/sales' },
-    { id: 'delivered', label: '9. Retail Delivered', count: k.todaysSalesCount || 0, icon: CheckCircle2, color: 'text-teal-800 bg-teal-100 border-teal-300', link: '/sales' },
+    { id: 'dispatch', label: '8. Sales Dispatched', count: k.todaysSalesCount || 0, icon: Receipt, color: 'text-blue-700 bg-blue-50 border-blue-200', link: '/sales' },
+    { id: 'delivered', label: '9. Retail Delivered', count: k.todaysSalesCount || 0, icon: CheckCircle2, color: 'text-blue-800 bg-blue-100 border-blue-300', link: '/sales' },
   ];
 
   // 6 Inventory Governance & Exception Cards
@@ -109,8 +109,8 @@ export default function Dashboard() {
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                 Arshith Fresh • Supply Chain & Inventory OS
               </span>
               <span className="text-xs text-slate-400 font-mono">Fiscal Year 2026-27</span>
@@ -126,7 +126,7 @@ export default function Dashboard() {
           {/* Quick Filter & Action Controls */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center gap-2 bg-[#101827]/90 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 shadow-inner">
-              <Filter className="w-4 h-4 text-emerald-400" />
+              <Filter className="w-4 h-4 text-blue-400" />
               <select
                 value={f.warehouseId}
                 onChange={(e) => setF({ ...f, warehouseId: e.target.value })}
@@ -140,7 +140,7 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-center gap-2 bg-[#101827]/90 border border-slate-700/80 rounded-xl px-3 py-2 text-xs text-slate-200 shadow-inner">
-              <Tags className="w-4 h-4 text-emerald-400" />
+              <Tags className="w-4 h-4 text-blue-400" />
               <select
                 value={f.categoryId}
                 onChange={(e) => setF({ ...f, categoryId: e.target.value })}
@@ -158,7 +158,7 @@ export default function Dashboard() {
               className="p-2.5 bg-[#101827]/90 hover:bg-slate-800 border border-slate-700 rounded-xl text-slate-200 hover:text-white transition-all shadow-inner cursor-pointer"
               title="Refresh Inventory State"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-emerald-400' : ''}`} />
+              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-blue-400' : ''}`} />
             </button>
 
             <button
@@ -170,8 +170,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Ambient background glow decoration in Emerald */}
-        <div className="absolute right-0 top-0 -mt-12 -mr-12 w-96 h-96 rounded-full bg-emerald-500/15 blur-3xl pointer-events-none"></div>
+        {/* Ambient background glow decoration in Blue */}
+        <div className="absolute right-0 top-0 -mt-12 -mr-12 w-96 h-96 rounded-full bg-blue-500/15 blur-3xl pointer-events-none"></div>
       </div>
 
       {/* 2. TOP 4 HERO PULSE SPOTLIGHT METRICS (PURE WHITE CARDS, SILVER BORDERS) */}
@@ -227,7 +227,7 @@ export default function Dashboard() {
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200 font-semibold">
                 {k.lowStock || 0} Low Stock
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200 font-semibold">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-semibold">
                 {k.outOfStock || 0} Out
               </span>
             </div>

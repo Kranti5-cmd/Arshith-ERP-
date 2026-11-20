@@ -50,43 +50,43 @@ export const StatusChangeModal = ({ isOpen, onClose, onSuccess, project }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 text-xs">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+    <div className="fixed inset-0 bg-[#253142]/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+      <div className="bg-[#F4F7FA] rounded-3xl max-w-lg w-full p-6 shadow-atmo-card-lg border border-[#DDE4EC] text-xs">
+        <div className="flex items-center justify-between pb-3 border-b border-[#DDE4EC]">
           <div>
-            <h3 className="text-sm font-bold text-slate-900">Project Status Transition</h3>
-            <p className="text-[11px] text-slate-500 font-mono mt-0.5">
+            <h3 className="text-sm font-bold text-[#253142]">Project Status Transition</h3>
+            <p className="text-[11px] text-[#7C8998] font-mono mt-0.5">
               {project.projectId} – {project.title}
             </p>
           </div>
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-slate-600">
+          <button onClick={onClose} className="p-1 text-[#A0ACBA] hover:text-[#253142]">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
           {/* Transition indicator */}
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between">
+          <div className="p-3 bg-[#E8EDF3]/70 rounded-2xl border border-[#DDE4EC] shadow-atmo-well flex items-center justify-between">
             <div>
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">Current Status</div>
-              <div className="font-bold text-slate-800 text-xs mt-0.5">{project.status.replace(/_/g, ' ')}</div>
+              <div className="text-[10px] text-[#7C8998] uppercase font-semibold">Current Status</div>
+              <div className="font-bold text-[#253142] text-xs mt-0.5">{project.status.replace(/_/g, ' ')}</div>
             </div>
-            <ArrowRight className="w-4 h-4 text-slate-400" />
+            <ArrowRight className="w-4 h-4 text-[#A0ACBA]" />
             <div>
-              <div className="text-[10px] text-slate-400 uppercase font-semibold">Target Status</div>
-              <div className="font-bold text-blue-800 text-xs mt-0.5">
+              <div className="text-[10px] text-[#7C8998] uppercase font-semibold">Target Status</div>
+              <div className="font-bold text-[#2563EB] text-xs mt-0.5">
                 {newStatus ? newStatus.replace(/_/g, ' ') : 'Select below'}
               </div>
             </div>
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Select New Status *</label>
+            <label className="block text-[#253142] font-semibold mb-1">Select New Status *</label>
             <select
               value={newStatus}
               onChange={(e) => setNewStatus(e.target.value)}
               required
-              className="w-full p-2.5 border border-slate-200 rounded-lg bg-slate-50 focus:bg-white text-xs font-medium"
+              className="w-full p-2.5 border border-[#DDE4EC] rounded-xl bg-[#E8EDF3]/60 focus:bg-white focus:border-[#2563EB] text-xs font-medium text-[#253142] outline-none"
             >
               <option value="">-- Choose Target Workflow State --</option>
               {validStatuses.map((s) => (
@@ -95,47 +95,47 @@ export const StatusChangeModal = ({ isOpen, onClose, onSuccess, project }) => {
                 </option>
               ))}
             </select>
-            <p className="text-[10px] text-slate-400 mt-1">
+            <p className="text-[10px] text-[#7C8998] mt-1">
               Note: To move to "On Hold", "Completed", or "Delivered", use the dedicated workflow action buttons in the
               header to ensure prerequisite checks are validated.
             </p>
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Reason for Transition *</label>
+            <label className="block text-[#253142] font-semibold mb-1">Reason for Transition *</label>
             <input
               type="text"
               required
               placeholder="e.g. Sprint 1 kicked off / Advance payment credited / Client approved scope"
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              className="w-full p-2.5 border border-slate-200 rounded-lg bg-slate-50 focus:bg-white"
+              className="w-full p-2.5 border border-[#DDE4EC] rounded-xl bg-[#E8EDF3]/60 focus:bg-white focus:border-[#2563EB] text-[#253142] outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-slate-700 font-semibold mb-1">Remarks / Audit Note</label>
+            <label className="block text-[#253142] font-semibold mb-1">Remarks / Audit Note</label>
             <textarea
               rows={2}
               placeholder="Additional executive context or operational notes for the permanent history log."
               value={remarks}
               onChange={(e) => setRemarks(e.target.value)}
-              className="w-full p-2.5 border border-slate-200 rounded-lg bg-slate-50 focus:bg-white"
+              className="w-full p-2.5 border border-[#DDE4EC] rounded-xl bg-[#E8EDF3]/60 focus:bg-white focus:border-[#2563EB] text-[#253142] outline-none"
             ></textarea>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#DDE4EC]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-slate-200 text-slate-600 rounded-lg"
+              className="px-4 py-2 border border-[#DDE4EC] bg-[#E8EDF3] hover:bg-[#DDE4EC] text-[#253142] rounded-xl font-medium transition-all"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-lg shadow-sm"
+              className="px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold rounded-xl shadow-md shadow-blue-500/25 transition-all"
             >
               {loading ? 'Recording...' : 'Confirm Status Update'}
             </button>

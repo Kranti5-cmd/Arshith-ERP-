@@ -176,40 +176,42 @@ export const ProjectFormModal = ({ isOpen, onClose, onSuccess, editProject = nul
   ];
 
   return (
-    <div className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
+    <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-150">
+      <div className="bg-[#F4F7FA] rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-atmo-card-lg border border-[#DDE4EC] overflow-hidden">
         {/* Header */}
-        <div className="p-4 px-6 border-b border-slate-200 flex items-center justify-between bg-slate-50 rounded-t-2xl">
+        <div className="p-4 px-6 border-b border-[#DDE4EC] flex items-center justify-between bg-[#F4F7FA] rounded-t-3xl">
           <div>
-            <h2 className="text-base font-bold text-slate-900">
+            <h2 className="text-base font-extrabold text-[#253142]">
               {isEditing ? `Edit Project: ${editProject.projectId}` : 'Register New Enterprise Project'}
             </h2>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#7C8998]">
               {isEditing
                 ? 'Update specifications, timelines, or financial allocations'
                 : 'Auto-generates unique Project ID (AIP-2026-XXX) and sets up lifecycle record'}
             </p>
           </div>
-          <button onClick={onClose} className="p-1 text-slate-400 hover:text-slate-600 rounded-lg">
-            <X className="w-5 h-5" />
+          <button onClick={onClose} className="atmo-btn-icon">
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Section Tabs */}
-        <div className="flex border-b border-slate-200 bg-white px-6 gap-2 pt-2">
-          {sections.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => setActiveSection(s.id)}
-              className={`pb-2.5 px-3 text-xs font-semibold border-b-2 transition-all ${
-                activeSection === s.id
-                  ? 'border-blue-600 text-blue-800'
-                  : 'border-transparent text-slate-400 hover:text-slate-700'
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
+        {/* Section Tabs in Atmosphere Well */}
+        <div className="px-6 pt-3 pb-1">
+          <div className="atmo-well p-1.5 rounded-2xl flex items-center gap-1 overflow-x-auto">
+            {sections.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => setActiveSection(s.id)}
+                className={`py-1.5 px-3.5 text-xs font-semibold rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                  activeSection === s.id
+                    ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
+                    : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
+                }`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Form Body */}

@@ -74,10 +74,11 @@ export const OnHoldPage = ({ onSelectProject, onOpenResumeModal, onOpenHoldModal
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <PauseCircle className="w-5 h-5 text-amber-600" /> On-Hold Projects Management
+          <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium"><span>Atmosphere</span><span>&rsaquo;</span><span>Projects</span><span>&rsaquo;</span><span className="text-[#253142] font-semibold">On-Hold</span></div>
+          <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+            <PauseCircle className="w-6 h-6 text-amber-500" /> On-Hold Projects Management
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-[#7C8998] mt-0.5">
             Audit stalled and suspended projects, track hold duration, evaluate root causes, and clear resumption barriers.
           </p>
         </div>
@@ -85,7 +86,7 @@ export const OnHoldPage = ({ onSelectProject, onOpenResumeModal, onOpenHoldModal
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <button
             onClick={fetchHolds}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-medium transition-colors shadow-2xs"
+            className="flex items-center gap-1.5 px-4 py-2 bg-[#E8EDF3] border border-[#DDE4EC] hover:bg-[#DDE4EC] text-[#253142] rounded-2xl text-xs font-semibold shadow-atmo-btn transition-all"
             title="Refresh on-hold list"
           >
             <RefreshCw className={`w-3.5 h-3.5 text-slate-500 ${loading ? 'animate-spin' : ''}`} />
@@ -133,7 +134,7 @@ export const OnHoldPage = ({ onSelectProject, onOpenResumeModal, onOpenHoldModal
       )}
 
       {/* Filter and Tab Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-[#F4F7FA] p-4 rounded-3xl border border-[#DDE4EC] shadow-atmo-card">
         {/* Search */}
         <div className="relative flex-1 min-w-[240px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -142,18 +143,18 @@ export const OnHoldPage = ({ onSelectProject, onOpenResumeModal, onOpenHoldModal
             placeholder="Search by Project ID (AIP-2026), Title, Hold Reason, or Manager..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-500"
+            className="w-full pl-10 pr-3 py-2 text-xs bg-[#E8EDF3]/70 border border-[#DDE4EC] rounded-xl text-[#253142] shadow-atmo-well focus:outline-none focus:border-[#2563EB]"
           />
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+        <div className="flex items-center gap-1 bg-[#E8EDF3]/80 p-1.5 rounded-2xl border border-[#DDE4EC] shadow-atmo-well">
           <button
             onClick={() => setActiveTab('active')}
             className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
               activeTab === 'active'
-                ? 'bg-white text-amber-900 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-[#253142] shadow-atmo-btn rounded-xl font-bold'
+                : 'text-[#7C8998] hover:text-[#253142]'
             }`}
           >
             Active On-Hold ({data?.totalActiveOnHold || 0})
@@ -162,8 +163,8 @@ export const OnHoldPage = ({ onSelectProject, onOpenResumeModal, onOpenHoldModal
             onClick={() => setActiveTab('historical')}
             className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
               activeTab === 'historical'
-                ? 'bg-white text-slate-900 shadow-2xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-white text-[#253142] shadow-atmo-btn rounded-xl font-bold'
+                : 'text-[#7C8998] hover:text-[#253142]'
             }`}
           >
             Historical Resumptions ({data?.resolvedHolds?.length || 0})

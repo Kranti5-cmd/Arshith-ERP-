@@ -76,10 +76,10 @@ const NAV = [
 ];
 
 const FRESH_FINANCE_PROJECTS = [
-  { coId: '1', label: 'ArshithFresh Finance', icon: Leaf, color: 'text-green-400', badge: 'AFR' },
+  { coId: '1', label: 'ArshithFresh Finance', icon: Leaf, color: 'text-blue-400', badge: 'AFR' },
   { coId: '2', label: 'Infotech Finance', icon: Building2, color: 'text-blue-400', badge: 'AIT' },
   { coId: '3', label: 'CodeLekho Finance', icon: GraduationCap, color: 'text-purple-400', badge: 'CLK' },
-  { coId: 'all', label: 'All Companies (Consolidated)', icon: Layers, color: 'text-emerald-400', badge: 'ALL' },
+  { coId: 'all', label: 'All Companies (Consolidated)', icon: Layers, color: 'text-blue-400', badge: 'ALL' },
 ];
 
 function Sidebar({ onNavigate, unread }) {
@@ -106,7 +106,7 @@ function Sidebar({ onNavigate, unread }) {
           <div>
             <div className="font-extrabold text-[13px] tracking-wider text-white uppercase font-sans flex items-center gap-1.5">
               <span>Arshith</span>
-              <span className="text-emerald-400 font-semibold">Fresh</span>
+              <span className="text-blue-400 font-semibold">Fresh</span>
             </div>
             <div className="text-[9px] text-slate-400 font-mono tracking-widest uppercase">
               Inventory & Supply Chain OS
@@ -133,14 +133,14 @@ function Sidebar({ onNavigate, unread }) {
                           setFinanceMenuOpen(!financeMenuOpen);
                           handleSelectFinance('1');
                         }}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all group relative cursor-pointer bg-emerald-600/20 text-white font-semibold border-l-4 border-emerald-500 shadow-xs"
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all group relative cursor-pointer bg-blue-600/20 text-white font-semibold border-l-4 border-blue-500 shadow-xs"
                       >
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <Icon className="w-4 h-4 shrink-0 text-emerald-400" />
+                          <Icon className="w-4 h-4 shrink-0 text-blue-400" />
                           <span className="truncate">{label}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                          <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30">
                             Dropdown
                           </span>
                           <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${financeMenuOpen ? 'rotate-180' : ''}`} />
@@ -158,7 +158,7 @@ function Sidebar({ onNavigate, unread }) {
                                 onClick={() => handleSelectFinance(fOpt.coId)}
                                 className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-md text-[11px] transition-all cursor-pointer ${
                                   isCurrentCo
-                                    ? 'bg-emerald-600/30 text-emerald-300 font-bold border border-emerald-500/30'
+                                    ? 'bg-blue-600/30 text-blue-300 font-bold border border-blue-500/30'
                                     : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
                                 }`}
                               >
@@ -244,7 +244,7 @@ function BellDropdown({ data, reload }) {
     return () => document.removeEventListener('mousedown', h);
   }, []);
 
-  const sev = { CRITICAL: 'bg-rose-500', WARNING: 'bg-amber-500', SUCCESS: 'bg-emerald-500', INFO: 'bg-sky-500' };
+  const sev = { CRITICAL: 'bg-rose-500', WARNING: 'bg-amber-500', SUCCESS: 'bg-blue-500', INFO: 'bg-sky-500' };
 
   return (
     <div className="relative" ref={ref}>
@@ -325,7 +325,7 @@ export default function Layout() {
   const ini = user?.name ? user.name.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase() : 'FK';
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#F5F7FA] font-sans">
+    <div className="flex h-screen w-screen overflow-hidden bg-[#E8EDF3] font-sans">
       {/* Unified 16-item Left Sidebar */}
       <div className="hidden lg:block">
         <Sidebar unread={notes.unread} />
@@ -343,7 +343,7 @@ export default function Layout() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Top Header matching Arshith Infotech exact layout */}
-        <header className="h-16 bg-white border-b border-[#E2E8F0] px-6 flex items-center justify-between sticky top-0 z-20 shadow-xs">
+        <header className="h-16 bg-[#E8EDF3]/90 backdrop-blur-md border-b border-[#DDE4EC] px-6 flex items-center justify-between sticky top-0 z-20 shadow-atmo-card">
           {/* Mobile hamburger */}
           <button className="p-2 -ml-2 rounded-lg text-[#64748B] hover:text-[#111827] hover:bg-slate-100 lg:hidden mr-2 cursor-pointer" onClick={() => setMobile(true)}>
             <Menu className="h-5 w-5" />
@@ -364,7 +364,7 @@ export default function Layout() {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Search products..."
-                className="w-full pl-8 pr-16 py-2 text-xs bg-[#F5F7FA] border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#2563EB] focus:bg-white transition-all text-[#111827] placeholder-[#64748B]"
+                className="w-full pl-9 pr-16 py-2 text-xs bg-[#E8EDF3]/70 border border-[#DDE4EC] rounded-2xl shadow-atmo-well focus:outline-none focus:border-[#2563EB] focus:bg-white transition-all text-[#253142] placeholder-[#7C8998]"
               />
               <kbd className="hidden lg:inline-flex items-center gap-0.5 absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono text-[#64748B] bg-white border border-[#E2E8F0] rounded shadow-2xs pointer-events-none select-none">
                 Ctrl K
@@ -375,15 +375,15 @@ export default function Layout() {
           {/* Right Controls */}
           <div className="flex items-center gap-3">
             {/* Telemetry pill: Live Warehouse Stock */}
-            <div className="hidden xl:flex items-center gap-2 px-3 py-1 bg-emerald-50/80 border border-emerald-200/80 rounded-full text-[11px] font-semibold text-emerald-800">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+            <div className="hidden xl:flex items-center gap-2 px-3 py-1 bg-blue-50/80 border border-blue-200/80 rounded-full text-[11px] font-semibold text-blue-800">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
               <span>Live Stock • Main Warehouse</span>
             </div>
 
             {/* Quick Action Button: New Product */}
             <Link
               to="/products"
-              className="flex items-center gap-1.5 px-3.5 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-lg text-xs font-semibold shadow-xs hover:shadow transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-2xl text-xs font-semibold shadow-md shadow-blue-500/25 transition-all cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>New Product</span>
@@ -393,7 +393,7 @@ export default function Layout() {
             <CompanySwitcherDropdown />
 
             {/* Admin Badge */}
-            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#F5F7FA] border border-[#E2E8F0] text-[#111827] rounded-lg text-xs font-semibold tracking-wide">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#E8EDF3] border border-[#DDE4EC] text-[#253142] rounded-2xl text-xs font-semibold shadow-atmo-btn tracking-wide">
               <Shield className="w-3.5 h-3.5 text-[#2563EB]" />
               <span className="font-mono text-[11px]">ADMINISTRATOR</span>
             </div>
@@ -425,7 +425,7 @@ export default function Layout() {
         </header>
 
         {/* Dynamic Outlet with Arshith Infotech Page Background */}
-        <main className="flex-1 overflow-y-auto px-6 py-6 bg-[#F5F7FA]">
+        <main className="flex-1 overflow-y-auto px-6 py-6 bg-[#E8EDF3]">
           <Outlet context={{ reloadNotes: loadNotes }} />
         </main>
       </div>

@@ -24,17 +24,18 @@ export const MilestonesPage = ({ onSelectProject }) => {
   return (
     <div className="p-6 space-y-5 max-w-7xl mx-auto text-xs">
       <div>
-        <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-          <Milestone className="w-5 h-5 text-blue-800" /> Contractual Project Milestones
+        <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium"><span>Atmosphere</span><span>&rsaquo;</span><span>Delivery</span><span>&rsaquo;</span><span className="text-[#253142] font-semibold">Milestones</span></div>
+        <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+          <Milestone className="w-6 h-6 text-[#2563EB]" /> Contractual Project Milestones
         </h1>
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs text-[#7C8998] mt-0.5">
           Delivery checkpoints, technical signoffs and customer billing milestones across the company portfolio.
         </p>
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
+      <div className="bg-[#F4F7FA] rounded-3xl border border-[#DDE4EC] shadow-atmo-card overflow-hidden">
         <table className="w-full text-left text-xs">
-          <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold text-[11px] uppercase">
+          <thead className="bg-[#E3E9F0] border-b border-[#DDE4EC] text-[#7C8998] font-bold text-[11px] uppercase tracking-wider">
             <tr>
               <th className="py-2.5 px-4">Milestone ID</th>
               <th className="py-2.5 px-4">Milestone Name</th>
@@ -44,10 +45,10 @@ export const MilestonesPage = ({ onSelectProject }) => {
               <th className="py-2.5 px-4 text-center">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-[#DDE4EC]">
             {milestones.map((m) => (
-              <tr key={m.id} className="hover:bg-slate-50">
-                <td className="py-2.5 px-4 font-mono font-bold text-slate-800">{m.milestoneId}</td>
+              <tr key={m.id} className="hover:bg-[#E8EDF3]/40 transition-colors">
+                <td className="py-2.5 px-4 font-mono font-bold text-[#2563EB]">{m.milestoneId}</td>
                 <td className="py-2.5 px-4">
                   <div className="font-semibold text-slate-900">{m.name}</div>
                   <div className="text-[11px] text-slate-500">{m.description}</div>

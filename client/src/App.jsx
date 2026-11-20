@@ -180,7 +180,7 @@ export function AppContent() {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#F5F7FA] font-sans">
+    <div className="flex h-screen w-screen overflow-hidden bg-[#E8EDF3] font-sans">
       {/* 16-item Sidebar */}
       <Sidebar activeTab={activeTab === 'project-details' ? 'projects' : activeTab} setActiveTab={setActiveTab} />
 

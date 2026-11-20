@@ -131,17 +131,18 @@ export const TasksPage = ({ onSelectProject }) => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <CheckSquare className="w-5 h-5 text-blue-800" /> Universal Project Task Management
+          <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium"><span>Atmosphere</span><span>&rsaquo;</span><span>Delivery</span><span>&rsaquo;</span><span className="text-[#253142] font-semibold">Tasks</span></div>
+          <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+            <CheckSquare className="w-6 h-6 text-[#2563EB]" /> Universal Project Task Management
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-[#7C8998] mt-0.5">
             Cross-project engineering sprint tasks, developer assignments, and completion hours tracking.
           </p>
         </div>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-1.5 px-3.5 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors self-start sm:self-auto"
+          className="flex items-center gap-1.5 px-4 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-2xl text-xs font-semibold shadow-md shadow-blue-500/25 transition-all self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Create Task</span>
@@ -149,7 +150,7 @@ export const TasksPage = ({ onSelectProject }) => {
       </div>
 
       {/* Search and Filters */}
-      <div className="flex flex-wrap items-center gap-3 bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
+      <div className="flex flex-wrap items-center gap-3 bg-[#F4F7FA] p-4 rounded-3xl border border-[#DDE4EC] shadow-atmo-card">
         <div className="relative flex-1 min-w-[220px]">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -157,7 +158,7 @@ export const TasksPage = ({ onSelectProject }) => {
             placeholder="Search by Task ID (TSK-001), Title, Project (AIP-2026)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
+            className="w-full pl-10 pr-3 py-2 text-xs bg-[#E8EDF3]/70 border border-[#DDE4EC] rounded-xl text-[#253142] shadow-atmo-well focus:outline-none focus:border-[#2563EB]"
           />
         </div>
 

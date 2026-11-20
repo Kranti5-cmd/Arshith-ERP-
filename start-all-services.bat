@@ -78,3 +78,4 @@ echo   - PostgreSQL Cluster:  127.0.0.1:5434 (Database: erp)
 echo ===================================================================
 start http://localhost:5001
 exit /b 0
+

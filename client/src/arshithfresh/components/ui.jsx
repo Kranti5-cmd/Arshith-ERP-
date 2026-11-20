@@ -4,8 +4,8 @@ import { words } from '../lib/format.js';
 
 // semantic status colours
 const TONE = {
-  ok: 'bg-emerald-50 text-emerald-700 border-emerald-200', warn: 'bg-amber-50 text-amber-800 border-amber-200', bad: 'bg-rose-50 text-rose-700 border-rose-200',
-  info: 'bg-sky-50 text-sky-700 border-sky-200', neutral: 'bg-mist text-ink-muted border-[#E4E5E8]', brand: 'bg-orange-50 text-orange-700 border-orange-100', dark: 'bg-charcoal text-white border-charcoal',
+  ok: 'bg-blue-50 text-blue-700 border-blue-200', warn: 'bg-amber-50 text-amber-800 border-amber-200', bad: 'bg-rose-50 text-rose-700 border-rose-200',
+  info: 'bg-sky-50 text-sky-700 border-sky-200', neutral: 'bg-mist text-ink-muted border-[#E4E5E8]', brand: 'bg-blue-50 text-blue-700 border-orange-100', dark: 'bg-charcoal text-white border-charcoal',
 };
 const STATUS_TONE = {
   ACTIVE: 'ok', INACTIVE: 'neutral', ARCHIVED: 'neutral', IN_STOCK: 'ok', LOW_STOCK: 'warn', OUT_OF_STOCK: 'bad',
@@ -21,7 +21,7 @@ export function Pill({ status, label, tone }) {
 }
 
 export function Spinner({ label = 'Loading…' }) {
-  return <div className="flex items-center justify-center gap-2 py-16 text-sm text-ink-muted"><Loader2 className="h-4 w-4 animate-spin text-orange-500" />{label}</div>;
+  return <div className="flex items-center justify-center gap-2 py-16 text-sm text-ink-muted"><Loader2 className="h-4 w-4 animate-spin text-blue-600" />{label}</div>;
 }
 export function ErrorBox({ error }) {
   if (!error) return null;
@@ -30,7 +30,7 @@ export function ErrorBox({ error }) {
 export function Empty({ icon: Icon, title, text, action }) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-14 text-center">
-      {Icon && <div className="mb-3 rounded-2xl bg-cream p-3 text-orange-500"><Icon className="h-6 w-6" /></div>}
+      {Icon && <div className="mb-3 rounded-2xl bg-cream p-3 text-blue-600"><Icon className="h-6 w-6" /></div>}
       <div className="font-semibold text-ink">{title}</div>
       {text && <div className="mt-1 max-w-sm text-sm text-ink-muted">{text}</div>}
       {action && <div className="mt-4">{action}</div>}
@@ -56,7 +56,7 @@ export function Modal({ open, onClose, title, subtitle, children, footer, size =
 export function Field({ label, required, hint, children, className = '' }) {
   return (
     <label className={`block ${className}`}>
-      <span className="mb-1 block text-xs font-semibold text-ink">{label}{required && <span className="text-orange-600"> *</span>}</span>
+      <span className="mb-1 block text-xs font-semibold text-ink">{label}{required && <span className="text-blue-600"> *</span>}</span>
       {children}
       {hint && <span className="mt-1 block text-[11px] text-ink-muted">{hint}</span>}
     </label>
@@ -68,7 +68,7 @@ export function PageHeader({ title, subtitle, eyebrow, actions, icon: Icon }) {
       <div className="flex items-start gap-3">
         {Icon && <div className="mt-1 hidden rounded-2xl bg-charcoal p-2.5 text-orange-400 sm:block"><Icon className="h-5 w-5" /></div>}
         <div>
-          {eyebrow && <div className="eyebrow mb-1 !text-orange-600">{eyebrow}</div>}
+          {eyebrow && <div className="eyebrow mb-1 !text-blue-600">{eyebrow}</div>}
           <h1 className="font-display text-2xl font-extrabold tracking-tight">{title}</h1>
           {subtitle && <p className="mt-1 max-w-3xl text-sm text-ink-muted">{subtitle}</p>}
         </div>

@@ -55,10 +55,17 @@ export const ReportsPage = () => {
     <div className="p-6 space-y-5 max-w-7xl mx-auto text-xs">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-blue-800" /> Reports & Analytics Hub
+          <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium">
+            <span>Atmosphere</span>
+            <span>&rsaquo;</span>
+            <span>Analytics</span>
+            <span>&rsaquo;</span>
+            <span className="text-[#253142] font-semibold">Reports Hub</span>
+          </div>
+          <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+            <BarChart3 className="w-6 h-6 text-[#2563EB]" /> Reports & Analytics Hub
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="text-xs text-[#7C8998] mt-0.5">
             Audit-grade business intelligence and regulatory compliance reporting generated from live database records.
           </p>
         </div>
@@ -66,7 +73,7 @@ export const ReportsPage = () => {
         <div className="flex items-center gap-2">
           <button
             onClick={handleDownloadCSV}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-800 text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors"
+            className="flex items-center gap-1.5 px-4 py-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-2xl text-xs font-semibold shadow-md shadow-blue-500/25 transition-all"
           >
             <Download className="w-3.5 h-3.5" />
             <span>Export CSV</span>
@@ -75,12 +82,14 @@ export const ReportsPage = () => {
       </div>
 
       {/* Report Selection Dropdown & Pills */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-3">
-        <label className="block text-slate-700 font-semibold text-xs">Select Analytical Report</label>
+      <div className="bg-[#F4F7FA] p-5 rounded-3xl border border-[#DDE4EC] shadow-atmo-card space-y-2">
+        <label className="block text-[#253142] font-bold text-xs uppercase tracking-wider font-mono">
+          Select Analytical Report
+        </label>
         <select
           value={selectedReport}
           onChange={(e) => setSelectedReport(e.target.value)}
-          className="w-full p-2.5 border border-slate-200 rounded-lg bg-slate-50 text-slate-800 font-semibold focus:outline-none focus:ring-1 focus:ring-blue-600 text-xs"
+          className="w-full p-3 border border-[#DDE4EC] rounded-xl bg-[#E8EDF3]/70 text-[#253142] font-semibold shadow-atmo-well focus:outline-none focus:border-[#2563EB] text-xs"
         >
           {reportList.map((r) => (
             <option key={r.id} value={r.id}>
@@ -91,53 +100,53 @@ export const ReportsPage = () => {
       </div>
 
       {/* Report Table View */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-2xs overflow-hidden">
-        <div className="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+      <div className="bg-[#F4F7FA] rounded-3xl border border-[#DDE4EC] shadow-atmo-card overflow-hidden">
+        <div className="p-4 border-b border-[#DDE4EC] bg-[#E3E9F0]/60 flex items-center justify-between">
           <div>
-            <h2 className="font-bold text-slate-900 text-xs uppercase tracking-wider font-mono">
+            <h2 className="font-bold text-[#253142] text-xs uppercase tracking-wider font-mono">
               {reportData?.title || 'Report Output'}
             </h2>
-            <div className="text-[11px] text-slate-400 mt-0.5">
+            <div className="text-[11px] text-[#7C8998] mt-0.5">
               Live Database Audit • Generated on {new Date().toLocaleDateString()}
             </div>
           </div>
-          <span className="px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-700 font-mono font-bold text-[10px]">
+          <span className="px-3 py-1 rounded-full bg-white text-[#253142] font-mono font-bold text-[10px] shadow-atmo-btn border border-[#DDE4EC]">
             {rows.length} Records
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50/80 text-slate-600 font-semibold uppercase text-[10px] tracking-wider border-b border-slate-200 select-none">
+            <thead className="bg-[#E3E9F0] text-[#7C8998] font-bold uppercase text-[10px] tracking-wider border-b border-[#DDE4EC] select-none">
               <tr>
                 {headers.map((h, idx) => (
-                  <th key={idx} className="py-2.5 px-3.5 whitespace-nowrap">
+                  <th key={idx} className="py-3 px-4 whitespace-nowrap">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#DDE4EC]">
               {loading ? (
                 <tr>
-                  <td colSpan={headers.length || 1} className="py-12 text-center text-slate-400">
-                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-blue-600" />
+                  <td colSpan={headers.length || 1} className="py-12 text-center text-[#7C8998]">
+                    <RefreshCw className="w-5 h-5 animate-spin mx-auto mb-2 text-[#2563EB]" />
                     Compiling live dataset...
                   </td>
                 </tr>
               ) : rows.length === 0 ? (
                 <tr>
-                  <td colSpan={headers.length || 1} className="py-8 text-center text-slate-400">
+                  <td colSpan={headers.length || 1} className="py-8 text-center text-[#7C8998]">
                     No records found for this report criteria.
                   </td>
                 </tr>
               ) : (
                 rows.map((row, rIdx) => (
-                  <tr key={rIdx} className="hover:bg-slate-50">
+                  <tr key={rIdx} className="hover:bg-[#E8EDF3]/40 transition-colors">
                     {headers.map((header, cIdx) => (
-                      <td key={cIdx} className="py-2.5 px-3.5 whitespace-nowrap text-slate-700">
+                      <td key={cIdx} className="py-3 px-4 whitespace-nowrap text-[#253142]">
                         {header.includes('₹') || header.includes('Budget') || header.includes('Cost') || header.includes('Value') ? (
-                          <span className="font-mono font-semibold text-slate-900">
+                          <span className="font-mono font-semibold text-[#2563EB]">
                             {typeof row[header] === 'number'
                               ? `₹${row[header].toLocaleString('en-IN')}`
                               : row[header]}
