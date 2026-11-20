@@ -49,79 +49,127 @@ function enrichProduct(p) {
 }
 
 const DEFAULT_CENTRAL_ANALYTICS = {
+  selectedCompany: "all",
   consolidated: {
     totalRevenue: 52469,
-    activeEntities: 3,
     totalTransactions: 3,
-    totalUsers: 261,
-    activeConnectors: 2,
-    totalConnectors: 3,
-    totalSyncedRecords: 321,
+    totalEntitiesCatalog: 56,
+    totalUsersBase: 261,
+    activeIntegrationsCount: 2,
+    totalIntegrationsCount: 3
   },
   companies: {
     arshithfresh: {
-      connectionStatus: 'CONNECTED',
+      companyId: "arshithfresh",
+      companyName: "ArshithFresh",
+      industry: "E-Commerce & Supply Chain",
+      database: "MongoDB Atlas",
+      connectionStatus: "CONNECTED",
+      lastSyncAt: "2026-11-19T08:35:31.032Z",
+      lastSyncStatus: "COMPLETED",
+      dataAvailable: true,
       metrics: {
         totalRevenue: 2469,
-        totalOrders: 3,
-        totalProducts: 31,
-        inStockProducts: 2015,
+        totalOrders: 2,
+        deliveredOrders: 1,
+        pendingOrders: 0,
+        totalProducts: 51,
+        inStockProducts: 0,
+        outOfStockProducts: 51,
         totalCustomers: 1,
-      },
-      lastSyncAt: new Date().toISOString(),
-      lastSyncStatus: 'COMPLETED',
+        totalSuppliers: 2
+      }
     },
     codelekho: {
-      connectionStatus: 'CONNECTED',
-      metrics: {
-        totalRevenue: 50000,
-        totalStudents: 260,
-        totalCourses: 4,
-        totalCertificates: 260,
-      },
-      lastSyncAt: new Date().toISOString(),
-      lastSyncStatus: 'COMPLETED',
-    },
-    arshith_infotech: {
-      connectionStatus: 'PENDING',
+      companyId: "codelekho",
+      companyName: "CodeLekho",
+      industry: "Academic LMS & Bootcamps",
+      database: "Supabase (PostgreSQL)",
+      connectionStatus: "CONNECTED",
+      lastSyncAt: "2026-11-19T07:21:13.612Z",
+      lastSyncStatus: "COMPLETED",
+      dataAvailable: true,
       metrics: {
         totalRevenue: 0,
-        totalProjects: 12,
-        activeProjects: 8,
-        totalClients: 6,
-      },
-      lastSyncAt: null,
-      lastSyncStatus: null,
+        totalCourses: 4,
+        enrolledLearners: 260,
+        certificatesIssued: 0,
+        projectSubmissions: 1
+      }
     },
+    arshith_infotech: {
+      companyId: "arshith_infotech",
+      companyName: "Arshith Infotech",
+      industry: "Bespoke Software & Client Delivery",
+      database: "External DB (Pending Integration)",
+      connectionStatus: "PENDING_INTEGRATION",
+      lastSyncAt: null,
+      lastSyncStatus: "NOT_STARTED",
+      dataAvailable: true,
+      metrics: {
+        totalProjects: 1,
+        activeProjects: 1,
+        completedProjects: 0,
+        totalClients: 2,
+        portfolioProposedBudget: 100000,
+        portfolioReceivedRevenue: 50000
+      }
+    }
   },
   monthlyTrends: [
-    { month: 'Jun', fresh: 1200, codelekho: 24000, infotech: 0, total: 25200 },
-    { month: 'Jul', fresh: 1500, codelekho: 31000, infotech: 0, total: 32500 },
-    { month: 'Aug', fresh: 1900, codelekho: 38000, infotech: 0, total: 39900 },
-    { month: 'Sep', fresh: 2100, codelekho: 44000, infotech: 0, total: 46100 },
-    { month: 'Oct', fresh: 2350, codelekho: 48000, infotech: 0, total: 50350 },
-    { month: 'Nov', fresh: 2469, codelekho: 50000, infotech: 0, total: 52469 },
+    {
+      month: "Nov 2026",
+      freshRevenue: 2469,
+      infotechRevenue: 50000,
+      orderCount: 2
+    }
   ],
   recentSyncActivity: [
     {
-      id: 'sync-af-01',
-      sourceSystem: 'arshithfresh',
-      status: 'COMPLETED',
-      created: 31,
-      updated: 0,
-      skipped: 0,
-      time: new Date().toISOString(),
+      id: "job-1795077330474-dkkc",
+      sourceSystem: "arshithfresh",
+      status: "COMPLETED",
+      created: 0,
+      updated: 33,
+      skipped: 3,
+      failed: 0,
+      time: "2026-11-19T08:35:30.474Z"
     },
     {
-      id: 'sync-cl-01',
-      sourceSystem: 'codelekho',
-      status: 'COMPLETED',
-      created: 260,
+      id: "job-1795073289250-ojeu",
+      sourceSystem: "arshithfresh",
+      status: "COMPLETED",
+      created: 1,
       updated: 0,
-      skipped: 0,
-      time: new Date().toISOString(),
+      skipped: 55,
+      failed: 0,
+      time: "2026-11-19T07:28:09.250Z"
     },
+    {
+      id: "job-1795072873658-qkab",
+      sourceSystem: "arshithfresh",
+      status: "COMPLETED",
+      created: 29,
+      updated: 23,
+      skipped: 3,
+      failed: 0,
+      time: "2026-11-19T07:21:13.658Z"
+    },
+    {
+      id: "job-1795072869335-95oo",
+      sourceSystem: "codelekho",
+      status: "COMPLETED",
+      created: 261,
+      updated: 4,
+      skipped: 0,
+      failed: 0,
+      time: "2026-11-19T07:21:09.335Z"
+    }
   ],
+  dataFreshness: {
+    lastUpdated: "2026-11-20T17:05:00.805Z",
+    totalSyncedRecords: 321
+  }
 };
 
 export default function handler(req, res) {
