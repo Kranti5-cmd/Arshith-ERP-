@@ -235,6 +235,9 @@ function Sidebar({ onNavigate, unread }) {
 }
 
 function BellDropdown({ data, reload }) {
+  const safeData = data && typeof data === 'object' && Array.isArray(data.items)
+    ? data
+    : { items: (data && Array.isArray(data.items)) ? data.items : [], unread: (data && data.unread) || 0 };
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -249,12 +252,12 @@ function BellDropdown({ data, reload }) {
   return (
     <div className="relative" ref={ref}>
       <button
-        onClick={() => { setOpen(!open); reload(); }}
+        onClick={() => { setOpen(!open); reload?.(); }}
         className="relative p-2 text-[#64748B] hover:text-[#111827] hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
         title="System Notifications"
       >
         <Bell className="w-4 h-4" />
-        {data.unread > 0 && (
+        {safeData.unread > 0 && (
           <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white"></span>
         )}
       </button>
@@ -271,10 +274,10 @@ function BellDropdown({ data, reload }) {
             </button>
           </div>
           <div className="max-h-96 overflow-y-auto divide-y divide-[#F1F5F9]">
-            {data.items.length === 0 && (
+            {safeData.items.length === 0 && (
               <div className="px-4 py-8 text-center text-xs text-[#64748B]">No notifications</div>
             )}
-            {data.items.slice(0, 12).map((n) => (
+            {safeData.items.slice(0, 12).map((n) => (
               <Link
                 key={n.id}
                 to={n.link || '/notifications'}
@@ -315,7 +318,18 @@ export default function Layout() {
   const [mobile, setMobile] = useState(false);
   const [notes, setNotes] = useState({ items: [], unread: 0 });
 
-  const loadNotes = () => api('/notifications').then(setNotes).catch(() => {});
+  const loadNotes = () =>
+    api('/notifications')
+      .then((res) => {
+        if (res && typeof res === 'object') {
+          setNotes({
+            items: Array.isArray(res.items) ? res.items : [],
+            unread: typeof res.unread === 'number' ? res.unread : 0,
+          });
+        }
+      })
+      .catch(() => {});
+
   useEffect(() => {
     loadNotes();
     const t = setInterval(loadNotes, 60000);
@@ -328,12 +342,12 @@ export default function Layout() {
     <div className="flex h-screen w-screen overflow-hidden bg-[#E8EDF3] font-sans">
       {/* Unified 16-item Left Sidebar */}
       <div className="hidden lg:block">
-        <Sidebar unread={notes.unread} />
+        <Sidebar unread={notes?.unread || 0} />
       </div>
 
       {mobile && (
         <div className="fixed inset-0 z-50 flex lg:hidden">
-          <Sidebar unread={notes.unread} onNavigate={() => setMobile(false)} />
+          <Sidebar unread={notes?.unread || 0} onNavigate={() => setMobile(false)} />
           <button className="flex-1 bg-black/60 backdrop-blur-xs" onClick={() => setMobile(false)}>
             <X className="ml-3 mt-3 h-6 w-6 text-white" />
           </button>

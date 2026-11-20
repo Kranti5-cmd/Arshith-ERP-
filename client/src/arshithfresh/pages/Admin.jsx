@@ -105,11 +105,11 @@ export function Notifications() {
   const { data, reload } = useApi('/notifications');
   const [sev, setSev] = useState('');
   if (!data) return <Spinner />;
-  const items = sev ? data.items.filter((n) => n.severity === sev) : data.items;
+  const items = Array.isArray(data?.items) ? (sev ? data.items.filter((n) => n.severity === sev) : data.items) : [];
   const dot = { CRITICAL: 'bg-rose-500', WARNING: 'bg-amber-500', SUCCESS: 'bg-blue-500', INFO: 'bg-sky-500' };
   return (
     <div className="mx-auto max-w-4xl">
-      <PageHeader icon={Bell} eyebrow="Insights" title="Notifications" subtitle={`${data.unread} unread · low stock, expiry, approvals, website orders and sync errors`} actions={<button className="btn-ghost" onClick={() => api('/notifications/read-all', { method: 'POST' }).then(reload)}>Mark all read</button>} />
+      <PageHeader icon={Bell} eyebrow="Insights" title="Notifications" subtitle={`${data?.unread || 0} unread · low stock, expiry, approvals, website orders and sync errors`} actions={<button className="btn-ghost" onClick={() => api('/notifications/read-all', { method: 'POST' }).then(reload)}>Mark all read</button>} />
       <Tabs value={sev} onChange={setSev} items={[['', 'All'], ['CRITICAL', 'Critical'], ['WARNING', 'Warnings'], ['INFO', 'Info'], ['SUCCESS', 'Completed']]} />
       <div className="card divide-y divide-[#F1ECE1]">
         {items.length === 0 && <Empty icon={Bell} title="Nothing here" />}

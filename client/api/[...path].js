@@ -216,10 +216,20 @@ export default function handler(req, res) {
     });
   }
 
-  // 6. Generic Fallback
+  // 6. Notifications
+  if (pathname.includes('/notifications')) {
+    return res.status(200).json({
+      items: [],
+      unread: 0,
+      unreadCount: 0,
+    });
+  }
+
+  // 7. Generic Fallback
   return res.status(200).json({
     success: true,
     data: [],
     message: 'Processed by Vercel Cloud Serverless Handler'
   });
 }
+
