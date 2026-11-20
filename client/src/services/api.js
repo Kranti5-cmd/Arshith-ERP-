@@ -1,4 +1,5 @@
-const BASE_URL = '/api';
+const RAW_URL = import.meta.env.VITE_API_URL || '';
+const BASE_URL = RAW_URL ? `${RAW_URL.replace(/\/$/, '')}/api` : '/api';
 
 export const getAuthToken = () => {
   return localStorage.getItem('arshith_auth_token');
