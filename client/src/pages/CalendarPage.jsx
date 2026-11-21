@@ -40,7 +40,7 @@ export const CalendarPage = ({ onSelectProject }) => {
   };
 
   return (
-    <div className="p-6 space-y-5 max-w-7xl mx-auto text-xs">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-5 max-w-7xl mx-auto text-xs max-w-full overflow-x-hidden font-sans animate-in fade-in duration-200">
       <div>
         <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium">
           <span>Atmosphere</span>
@@ -49,8 +49,8 @@ export const CalendarPage = ({ onSelectProject }) => {
           <span>&rsaquo;</span>
           <span className="text-[#253142] font-semibold">Calendar & Timeline</span>
         </div>
-        <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
-          <CalendarIcon className="w-6 h-6 text-[#2563EB]" /> Project Calendar & Gantt Timeline
+        <h1 className="text-xl sm:text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+          <CalendarIcon className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563EB] shrink-0" /> <span>Project Calendar & Timeline</span>
         </h1>
         <p className="text-xs text-[#7C8998] mt-0.5">
           Visualize multi-project development schedules, resource overlap conflicts, and delivery deadlines.

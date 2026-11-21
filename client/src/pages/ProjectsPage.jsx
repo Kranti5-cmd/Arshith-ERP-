@@ -176,10 +176,10 @@ export const ProjectsPage = ({
   ];
 
   return (
-    <div className="p-6 md:p-8 space-y-6 max-w-[1600px] mx-auto text-[#253142] font-sans">
+    <div className="p-3 sm:p-6 md:p-8 space-y-4 sm:space-y-6 max-w-[1600px] mx-auto text-[#253142] font-sans max-w-full overflow-x-hidden animate-in fade-in duration-200">
       
       {/* 1. Atmosphere Page Title & Header Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-2">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-xs font-semibold text-[#7C8998]">
             <span>Atmosphere</span>
@@ -189,7 +189,7 @@ export const ProjectsPage = ({
             <span className="text-[#253142] font-bold">Projects Inventory</span>
           </div>
           <div className="flex items-center gap-2.5">
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#253142] tracking-tight font-sans">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#253142] tracking-tight font-sans">
               Projects Repository
             </h1>
             <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-[#F4F7FA] text-[#7C8998] border border-[#DDE4EC] shadow-atmo-card-sm font-mono">
@@ -201,7 +201,7 @@ export const ProjectsPage = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-3 self-start sm:self-auto flex-wrap">
+        <div className="flex items-center gap-2 sm:gap-3 self-start sm:self-auto flex-wrap">
           <button
             onClick={handleExportCSV}
             className="atmo-btn-secondary"
@@ -221,7 +221,7 @@ export const ProjectsPage = ({
       </div>
 
       {/* 2. Atmosphere Status Pill Ribbon */}
-      <div className="atmo-well p-1.5 rounded-2xl overflow-x-auto scrollbar-none">
+      <div className="atmo-well p-1.5 rounded-2xl overflow-x-auto scrollbar-none max-w-full">
         <div className="flex items-center gap-1 min-w-max">
           {statusTabButtons.map((tab) => {
             const isActive = statusFilter === tab.id;
@@ -229,7 +229,7 @@ export const ProjectsPage = ({
               <button
                 key={tab.id}
                 onClick={() => setStatusFilter(tab.id)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer whitespace-nowrap ${
                   isActive
                     ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
                     : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
@@ -243,13 +243,13 @@ export const ProjectsPage = ({
       </div>
 
       {/* 3. Search & Secondary Filters Toolbar (Atmosphere Card) */}
-      <div className="atmo-card p-4 flex flex-wrap items-center justify-between gap-3">
+      <div className="atmo-card p-3 sm:p-4 flex flex-wrap items-center justify-between gap-3">
         {/* Recessed Well Search */}
-        <div className="relative flex-1 min-w-[260px]">
+        <div className="relative flex-1 w-full min-w-0 sm:min-w-[240px]">
           <Search className="w-4 h-4 text-[#7C8998] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search projects by ID, title, client company, tech stack..."
+            placeholder="Search projects by ID, title, client..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full pl-10 pr-8 py-2 text-xs bg-[#E2E8F0] border border-[#DDE4EC] rounded-2xl shadow-atmo-well focus:outline-none focus:ring-2 focus:ring-[#2563EB]/25 focus:border-[#2563EB] focus:bg-white text-[#253142] placeholder-[#A0ACBA] font-medium transition-all"
@@ -265,12 +265,12 @@ export const ProjectsPage = ({
         </div>
 
         {/* Dropdowns in Recessed Wells */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl">
+        <div className="flex items-center gap-2 flex-wrap w-full sm:w-auto">
+          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl flex-1 sm:flex-initial">
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
+              className="w-full bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
             >
               <option value="ALL">All Categories</option>
               <option value="Enterprise Web Application">Enterprise Web</option>
@@ -282,21 +282,21 @@ export const ProjectsPage = ({
             </select>
           </div>
 
-          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl">
+          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl flex-1 sm:flex-initial">
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value)}
-              className="bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
+              className="w-full bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
             >
               <option value="ALL">All Priorities</option>
-              <option value="CRITICAL">Critical Priority</option>
-              <option value="HIGH">High Priority</option>
-              <option value="MEDIUM">Medium Priority</option>
-              <option value="LOW">Low Priority</option>
+              <option value="CRITICAL">Critical</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
             </select>
           </div>
 
-          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl">
+          <div className="atmo-well px-3 py-1.5 text-xs flex items-center rounded-2xl flex-1 sm:flex-initial">
             <select
               value={`${sortBy}-${sortOrder}`}
               onChange={(e) => {
@@ -304,19 +304,19 @@ export const ProjectsPage = ({
                 setSortBy(sb);
                 setSortOrder(so);
               }}
-              className="bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
+              className="w-full bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
             >
               <option value="createdAt-desc">Newest First</option>
               <option value="projectId-asc">Project ID (Asc)</option>
               <option value="approvedBudget-desc">Highest Budget</option>
               <option value="completionPercentage-desc">Highest Progress</option>
-              <option value="expectedCompletionDate-asc">Target Deadline (Earliest)</option>
+              <option value="expectedCompletionDate-asc">Target Deadline</option>
             </select>
           </div>
 
           <button
             onClick={fetchProjects}
-            className="atmo-btn-icon"
+            className="atmo-btn-icon shrink-0"
             title="Refresh List"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[#2563EB]' : ''}`} />
@@ -326,7 +326,151 @@ export const ProjectsPage = ({
 
       {/* 4. Main Projects Data Grid (Atmosphere Neumorphic Card) */}
       <div className="atmo-card overflow-hidden">
-        <div className="overflow-x-auto">
+        {/* Mobile View: Purpose-Built Responsive Cards (Visible on < lg screens) */}
+        <div className="block lg:hidden divide-y divide-[#DDE4EC]">
+          {loading ? (
+            <div className="py-12 text-center text-[#7C8998]">
+              <RefreshCw className="w-6 h-6 animate-spin mx-auto mb-2 text-[#2563EB]" />
+              Loading portfolio records...
+            </div>
+          ) : projects.length === 0 ? (
+            <div className="py-12 px-4 text-center text-[#7C8998]">
+              <div className="w-12 h-12 rounded-2xl bg-[#E2E8F0] border border-[#DDE4EC] flex items-center justify-center mx-auto mb-3 text-[#2563EB] shadow-atmo-well">
+                <FolderGit2 className="w-6 h-6" />
+              </div>
+              <div className="font-bold text-[#253142] text-sm">No Projects in Portfolio</div>
+              <p className="text-xs text-[#7C8998] mt-1 mb-4">Start by registering your first company project.</p>
+              <button onClick={onOpenNewProjectModal} className="atmo-btn-primary">
+                <Plus className="w-4 h-4" />
+                <span>Add First Project</span>
+              </button>
+            </div>
+          ) : (
+            projects.map((p) => {
+              const isOverdue = p.isOverdue;
+              const statusConf = STATUS_BADGES[p.status] || { badge: 'bg-slate-100 text-[#7C8998]', dot: 'bg-slate-400' };
+              const priorityClass = PRIORITY_BADGES[p.priority] || 'bg-slate-100 text-[#7C8998]';
+
+              return (
+                <div key={p.id} className={`p-4 space-y-3 ${isOverdue ? 'bg-rose-50/30' : 'bg-transparent'}`}>
+                  {/* Top Badges */}
+                  <div className="flex items-center justify-between gap-2">
+                    <button
+                      onClick={() => onSelectProject(p.id)}
+                      className="inline-flex items-center px-2 py-0.5 rounded-lg font-mono font-bold text-xs bg-white text-[#253142] border border-[#DDE4EC] shadow-2xs"
+                    >
+                      {p.projectId}
+                    </button>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold border uppercase font-mono ${priorityClass}`}>
+                        {p.priority}
+                      </span>
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border uppercase font-mono ${statusConf.badge}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${statusConf.dot}`}></span>
+                        <span>{p.status.replace(/_/g, ' ')}</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Title & Category */}
+                  <div>
+                    <button
+                      onClick={() => onSelectProject(p.id)}
+                      className="font-bold text-sm text-[#253142] hover:text-[#2563EB] text-left transition-colors"
+                    >
+                      {p.title}
+                    </button>
+                    <div className="text-[11px] text-[#7C8998] mt-0.5">
+                      {p.categoryName || 'Enterprise Solutions'}
+                    </div>
+                  </div>
+
+                  {/* Metadata Grid */}
+                  <div className="grid grid-cols-2 gap-2 text-xs text-[#7C8998] bg-[#E2E8F0]/50 p-2.5 rounded-2xl">
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-mono text-[#A0ACBA]">Client</div>
+                      <div className="font-semibold text-[#253142] truncate flex items-center gap-1 mt-0.5">
+                        <Building2 className="w-3 h-3 text-[#7C8998] shrink-0" />
+                        <span className="truncate">{p.client ? p.client.companyName : 'N/A'}</span>
+                      </div>
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-mono text-[#A0ACBA]">Budget</div>
+                      <div className="font-mono font-bold text-[#253142] mt-0.5">
+                        {formatINR(p.approvedBudget)}
+                      </div>
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-mono text-[#A0ACBA]">Manager</div>
+                      <div className="font-semibold text-[#253142] truncate mt-0.5">
+                        {p.projectManager ? p.projectManager.name : 'Unassigned'}
+                      </div>
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-mono text-[#A0ACBA]">Deadline</div>
+                      <div className={`font-mono text-[11px] mt-0.5 ${isOverdue ? 'text-rose-600 font-bold' : 'text-[#253142]'}`}>
+                        {p.expectedCompletionDate || '—'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div>
+                    <div className="flex items-center justify-between text-[10px] font-mono font-bold text-[#253142] mb-1">
+                      <span>Progress</span>
+                      <span>{p.completionPercentage}%</span>
+                    </div>
+                    <div className="w-full bg-[#E2E8F0] rounded-full h-1.5 overflow-hidden shadow-atmo-well">
+                      <div
+                        className={`h-full rounded-full transition-all duration-300 ${
+                          p.completionPercentage === 100 ? 'bg-emerald-500' : 'bg-[#2563EB]'
+                        }`}
+                        style={{ width: `${p.completionPercentage}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  {/* Mobile Actions Bar */}
+                  <div className="flex items-center justify-between pt-1 border-t border-[#DDE4EC]/60">
+                    <button
+                      onClick={() => onSelectProject(p.id)}
+                      className="px-3 py-1.5 bg-[#2563EB] text-white rounded-xl text-xs font-semibold shadow-xs flex items-center gap-1.5 min-h-[36px]"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Workspace</span>
+                    </button>
+                    <div className="flex items-center gap-1">
+                      <button
+                        onClick={() => onOpenEditModal(p)}
+                        className="p-2 text-[#7C8998] hover:text-[#253142] hover:bg-white rounded-xl transition-all min-h-[36px] min-w-[36px] flex items-center justify-center border border-transparent hover:border-[#DDE4EC]"
+                        title="Edit Project"
+                      >
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleArchive(p)}
+                        className="p-2 text-[#7C8998] hover:text-amber-700 hover:bg-amber-50 rounded-xl transition-all min-h-[36px] min-w-[36px] flex items-center justify-center border border-transparent hover:border-amber-200"
+                        title="Archive Project"
+                      >
+                        <Archive className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(p)}
+                        className="p-2 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-xl transition-all min-h-[36px] min-w-[36px] flex items-center justify-center border border-transparent hover:border-rose-200"
+                        title="Delete Project"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* Desktop Table View (Hidden on mobile) */}
+        <div className="hidden lg:block overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-[#E2E8F0] border-b border-[#DDE4EC] text-[#7C8998] font-bold uppercase tracking-wider text-[11px] select-none font-mono">
               <tr>

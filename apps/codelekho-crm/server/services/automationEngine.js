@@ -10,6 +10,7 @@ const EmailSubscriber = require('../models/EmailSubscriber');
 const Lead = require('../models/Lead');
 const Task = require('../models/Task');
 const brevoService = require('./brevoService');
+const { calculateCoursePricing } = require('../utils/coursePricing');
 
 /**
  * Replace template dynamic variables with real student and course details
@@ -20,16 +21,24 @@ function renderVariables(text, data = {}) {
     ? new Date(data.registrationDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
     : new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 
+  const pricing = calculateCoursePricing(data.courseName, data.amount || data.value);
+
   const map = {
     'student_name': data.name || data.fullName || 'Student',
     'student_email': data.email || '',
-    'course_name': data.courseName || 'Python Programming',
+    'course_name': data.courseName || pricing.courseName || 'Python Programming',
     'registration_date': dateFormatted,
     'payment_status': data.paymentStatus || 'Confirmed',
     'course_start_date': data.courseStartDate || 'Upcoming Monday at 10:00 AM IST',
     'student_id': data.studentId || 'ARB-STU-001',
     'transaction_id': data.transactionId || `TXN-${Math.random().toString(36).substring(2, 9).toUpperCase()}`,
-    'amount': data.amount || '₹4,999',
+    'amount': data.amount || pricing.formattedAmount,
+    'base_price': `₹${pricing.basePrice}`,
+    'discount_amount': `₹${pricing.discountAmount}`,
+    'payable_amount': `₹${pricing.finalPrice}`,
+    'discount_percent': '10%',
+    'coupon_code': pricing.couponCode,
+    'pricing_breakdown': pricing.breakdownHtml,
     'feedback_link': 'https://arshithbootcamp.com/feedback',
     'course_duration': data.courseDuration || '12 Weeks (Interactive Live Sessions)',
     'counseling_time': data.counselingTime || 'Today at 4:00 PM IST'
@@ -155,7 +164,13 @@ async function processExecution(executionId) {
     paymentStatus: lead.paymentStatus || execution.metadata?.paymentStatus || 'Confirmed',
     studentId: lead.studentId || execution.metadata?.studentId || 'ARB-STU-001',
     transactionId: execution.metadata?.transactionId || `TXN-${Math.random().toString(36).substring(2, 9).toUpperCase()}`,
-    amount: execution.metadata?.amount || (lead.value ? `₹${lead.value}` : '₹4,999'),
+    amount: (() => {
+      const p = calculateCoursePricing(
+        lead.courseName || execution.metadata?.courseName,
+        execution.metadata?.amount || (lead.value !== 99 ? lead.value : null)
+      );
+      return p.formattedAmount;
+    })(),
     courseStartDate: execution.metadata?.courseStartDate || 'Upcoming Monday at 10:00 AM IST',
     counselingTime: execution.metadata?.counselingTime || 'Today at 4:00 PM IST'
   };

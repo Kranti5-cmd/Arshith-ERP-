@@ -211,10 +211,10 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
   const trends = analytics?.monthlyTrends || [];
 
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-7 animate-in fade-in duration-200 font-sans">
+    <div className="p-3 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-4 sm:space-y-7 animate-in fade-in duration-200 font-sans max-w-full overflow-x-hidden">
       
       {/* Top Atmosphere Breadcrumb & Overview Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4 pb-2">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-xs font-semibold text-[#7C8998]">
             <span>Atmosphere</span>
@@ -226,13 +226,13 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
           <div className="text-[10px] text-[#A0ACBA] font-mono uppercase tracking-wider">
             FRIDAY, NOVEMBER 20 • 15:50 • CONSOLIDATED MULTI-ENTITY OS
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-[#253142] tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#253142] tracking-tight">
             Ecosystem at a glance
           </h1>
         </div>
 
         {/* Right Quick Actions */}
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           {/* Data freshness indicator */}
           <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 bg-[#F4F7FA] border border-[#DDE4EC] rounded-2xl text-[11px] text-[#7C8998] shadow-atmo-card-sm font-mono">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -274,10 +274,10 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
       </div>
 
       {/* Atmosphere Recessed Well: Company Filter Selector */}
-      <div className="atmo-well p-1.5 rounded-2xl w-fit max-w-full overflow-x-auto flex items-center gap-1.5 text-xs font-semibold">
+      <div className="atmo-well p-1.5 rounded-2xl w-full sm:w-fit max-w-full overflow-x-auto scrollbar-none flex items-center gap-1.5 text-xs font-semibold">
         <button
           onClick={() => setSelectedCompany('all')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
             selectedCompany === 'all'
               ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
               : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
@@ -289,7 +289,7 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
 
         <button
           onClick={() => setSelectedCompany('arshithfresh')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
             selectedCompany === 'arshithfresh'
               ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
               : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
@@ -301,7 +301,7 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
 
         <button
           onClick={() => setSelectedCompany('codelekho')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
             selectedCompany === 'codelekho'
               ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
               : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
@@ -313,7 +313,7 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
 
         <button
           onClick={() => setSelectedCompany('arshith_infotech')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all cursor-pointer ${
+          className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap shrink-0 ${
             selectedCompany === 'arshith_infotech'
               ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
               : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
@@ -325,7 +325,7 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
       </div>
 
       {/* 4 Primary Executive KPIs (Atmosphere Signature Neumorphic Cards) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         
         {/* KPI 1: Consolidated Revenue */}
         <div className="atmo-card p-6 space-y-4">
@@ -728,11 +728,11 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
       </div>
 
       {/* Sync Activity Timeline */}
-      <div className="atmo-card p-6 space-y-4">
-        <div className="flex items-center justify-between">
+      <div className="atmo-card p-4 sm:p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h3 className="text-sm font-bold text-[#253142] flex items-center gap-2">
-              <Clock className="w-4 h-4 text-blue-600" />
+              <Clock className="w-4 h-4 text-blue-600 shrink-0" />
               <span>Real-Time Integration Sync Timeline</span>
             </h3>
             <p className="text-xs text-[#7C8998]">
@@ -742,7 +742,7 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
           {onNavigateToIntegrations && (
             <button
               onClick={onNavigateToIntegrations}
-              className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors"
+              className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors self-start sm:self-auto"
             >
               <span>Manage Connectors</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -757,26 +757,28 @@ export const CentralDashboardPage = ({ onNavigateToIntegrations, onNavigateToFin
         ) : (
           <div className="divide-y divide-[#DDE4EC]">
             {(analytics?.recentSyncActivity || []).map((act) => (
-              <div key={act.id} className="py-3 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-3">
+              <div key={act.id} className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-4 text-xs">
+                <div className="flex items-center gap-2.5 min-w-0">
                   <span
-                    className={`w-2 h-2 rounded-full ${
+                    className={`w-2 h-2 rounded-full shrink-0 ${
                       act.status === 'COMPLETED' ? 'bg-emerald-500' : 'bg-rose-500'
                     }`}
                   ></span>
-                  <div>
+                  <div className="min-w-0 truncate">
                     <span className="font-bold text-[#253142] capitalize font-mono">
                       {act.sourceSystem} Sync
                     </span>
-                    <span className="text-[#A0ACBA] text-[10px] ml-2 font-mono">{act.id}</span>
+                    <span className="text-[#A0ACBA] text-[10px] ml-2 font-mono truncate inline-block max-w-[130px] xs:max-w-[170px] sm:max-w-none align-bottom">
+                      {act.id}
+                    </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-[#7C8998] font-mono text-[11px]">
-                  <span>
+                <div className="flex items-center justify-between sm:justify-end gap-3 text-[#7C8998] font-mono text-[11px] pl-4 sm:pl-0">
+                  <span className="truncate">
                     +{act.created} created, {act.updated} updated, {act.skipped} skipped
                   </span>
-                  <span className="text-[#A0ACBA]">
-                    {new Date(act.time).toLocaleTimeString()}
+                  <span className="text-[#A0ACBA] shrink-0">
+                    {new Date(act.time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
               </div>

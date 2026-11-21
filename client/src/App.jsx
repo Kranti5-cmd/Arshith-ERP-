@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
+import { MobileNavigation } from './components/layout/MobileNavigation';
 import { DashboardPage } from './pages/DashboardPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ProjectDetailsPage } from './pages/ProjectDetailsPage';
@@ -82,6 +83,7 @@ export function AppContent() {
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [projectStatusFilter, setProjectStatusFilter] = useState('ALL');
   const [unreadNotificationsCount, setUnreadNotificationsCount] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Modals state
   const [isNewProjectModalOpen, setIsNewProjectModalOpen] = useState(false);
@@ -108,8 +110,16 @@ export function AppContent() {
     const handleNav = (e) => {
       if (e.detail) setActiveTab(e.detail);
     };
+    const handleOpenNewProject = () => {
+      setEditingProject(null);
+      setIsNewProjectModalOpen(true);
+    };
     window.addEventListener('navigate-tab', handleNav);
-    return () => window.removeEventListener('navigate-tab', handleNav);
+    window.addEventListener('open-new-project-modal', handleOpenNewProject);
+    return () => {
+      window.removeEventListener('navigate-tab', handleNav);
+      window.removeEventListener('open-new-project-modal', handleOpenNewProject);
+    };
   }, [isAuthenticated]);
 
   // If not authenticated as Admin, show Admin Login page
@@ -181,11 +191,16 @@ export function AppContent() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-[#E8EDF3] font-sans">
-      {/* 16-item Sidebar */}
-      <Sidebar activeTab={activeTab === 'project-details' ? 'projects' : activeTab} setActiveTab={setActiveTab} />
+      {/* 16-item Sidebar (Desktop Dock/Expanded & Mobile Slide-Out Drawer) */}
+      <Sidebar
+        activeTab={activeTab === 'project-details' ? 'projects' : activeTab}
+        setActiveTab={setActiveTab}
+        mobileOpen={isMobileMenuOpen}
+        setMobileOpen={setIsMobileMenuOpen}
+      />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         {/* Header with Admin Badge & Logout */}
         <Header
           setActiveTab={setActiveTab}
@@ -194,10 +209,11 @@ export function AppContent() {
             setIsNewProjectModalOpen(true);
           }}
           unreadNotificationsCount={unreadNotificationsCount}
+          onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         />
 
         {/* Dynamic Page Router with Error Boundary */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto pb-20 lg:pb-0 max-w-full overflow-x-hidden">
           <ErrorBoundary>
             {activeTab === 'central-dashboard' && (
               <CentralDashboardPage
@@ -337,6 +353,13 @@ export function AppContent() {
           fetchUnreadCount();
         }}
         project={deliverModalProject}
+      />
+
+      {/* Purpose-Built Atmosphere Mobile Navigation Bar */}
+      <MobileNavigation
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenMore={() => setIsMobileMenuOpen(true)}
       />
     </div>
   );

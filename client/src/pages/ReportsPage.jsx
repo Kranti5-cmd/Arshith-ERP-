@@ -52,7 +52,7 @@ export const ReportsPage = () => {
   const headers = rows.length > 0 ? Object.keys(rows[0]) : [];
 
   return (
-    <div className="p-6 space-y-5 max-w-7xl mx-auto text-xs">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-5 max-w-7xl mx-auto text-xs max-w-full overflow-x-hidden font-sans animate-in fade-in duration-200">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium">

@@ -436,7 +436,7 @@ export default function Reports() {
                     </div>
                     <div className="mt-2 flex items-baseline gap-2.5">
                       <span className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-                        {formatCurrency(avgDealSize || 99)}
+                        {formatCurrency(avgDealSize || 134)}
                       </span>
                       <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-800">
                         Standard Tier
@@ -1029,7 +1029,7 @@ export default function Reports() {
                     </div>
                     <div className="mt-2">
                       <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
-                        6 Verified Paid Learners (@ ₹99)
+                        Verified Paid Admissions (10% Discount Active)
                       </span>
                     </div>
                   </div>
@@ -1039,10 +1039,10 @@ export default function Reports() {
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart
                         data={[
-                          { day: 'Nov 6', val: 99 },
-                          { day: 'Nov 7', val: 198 },
-                          { day: 'Nov 8', val: 297 },
-                          { day: 'Nov 9', val: 396 },
+                          { day: 'Nov 6', val: 134 },
+                          { day: 'Nov 7', val: 268 },
+                          { day: 'Nov 8', val: 402 },
+                          { day: 'Nov 9', val: 581 },
                           { day: 'Nov 10', val: 594 },
                         ]}
                         margin={{ top: 10, right: 0, left: 0, bottom: 0 }}

@@ -154,10 +154,10 @@ export const DashboardPage = ({ onNavigateToProjectsWithFilter, onOpenNewProject
     : 0;
 
   return (
-    <div className="p-6 md:p-8 space-y-7 max-w-[1600px] mx-auto text-[#253142] font-sans">
+    <div className="p-3 sm:p-6 md:p-8 space-y-4 sm:space-y-7 max-w-[1600px] mx-auto text-[#253142] font-sans max-w-full overflow-x-hidden animate-in fade-in duration-200">
       
       {/* 1. ATMOSPHERE EXECUTIVE COMMAND BANNER */}
-      <div className="atmo-card p-6 md:p-8 border border-[#DDE4EC] shadow-atmo-card flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative overflow-hidden">
+      <div className="atmo-card p-4 sm:p-6 md:p-8 border border-[#DDE4EC] shadow-atmo-card flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6 relative overflow-hidden">
         <div className="space-y-2 z-10">
           <div className="flex items-center gap-2.5 flex-wrap">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-[#2563EB] border border-blue-200">
@@ -166,7 +166,7 @@ export const DashboardPage = ({ onNavigateToProjectsWithFilter, onOpenNewProject
             </span>
             <span className="text-xs text-[#7C8998] font-mono">Fiscal Year 2026-27</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[#253142] font-sans">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-[#253142] font-sans">
             Executive Project Portfolio Command Center
           </h1>
           <p className="text-xs md:text-sm text-[#7C8998] max-w-2xl leading-relaxed">
@@ -175,13 +175,13 @@ export const DashboardPage = ({ onNavigateToProjectsWithFilter, onOpenNewProject
         </div>
 
         {/* Quick Category & Action Controls */}
-        <div className="flex flex-wrap items-center gap-3 z-10">
-          <div className="atmo-well px-3 py-2 text-xs flex items-center gap-2 rounded-2xl">
-            <Filter className="w-4 h-4 text-[#2563EB]" />
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 z-10 w-full lg:w-auto">
+          <div className="atmo-well px-3 py-2 text-xs flex items-center gap-2 rounded-2xl flex-1 lg:flex-initial">
+            <Filter className="w-4 h-4 text-[#2563EB] shrink-0" />
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
+              className="w-full bg-transparent focus:outline-none text-[#253142] font-semibold cursor-pointer"
             >
               <option value="ALL">All Categories ({stats.totalProjects || 15})</option>
               <option value="Enterprise Web Application">Enterprise Web Application</option>
@@ -195,7 +195,7 @@ export const DashboardPage = ({ onNavigateToProjectsWithFilter, onOpenNewProject
 
           <button
             onClick={fetchStats}
-            className="atmo-btn-icon"
+            className="atmo-btn-icon shrink-0"
             title="Refresh Portfolio State"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-[#2563EB]' : ''}`} />
@@ -203,7 +203,7 @@ export const DashboardPage = ({ onNavigateToProjectsWithFilter, onOpenNewProject
 
           <button
             onClick={onOpenNewProjectModal}
-            className="atmo-btn-primary"
+            className="atmo-btn-primary shrink-0"
           >
             <span>+ New project</span>
           </button>
@@ -211,7 +211,7 @@ export const DashboardPage = ({ onNavigateToProjectsWithFilter, onOpenNewProject
       </div>
 
       {/* 2. TOP 4 HERO SPOTLIGHT METRICS (ATMOSPHERE NEUMORPHIC CARDS) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         {/* Spotlight 1: Portfolio Value & Burn Rate */}
         <div className="atmo-card p-6 space-y-3">
           <div className="flex items-center justify-between text-[#7C8998]">

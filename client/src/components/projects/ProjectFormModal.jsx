@@ -176,15 +176,15 @@ export const ProjectFormModal = ({ isOpen, onClose, onSuccess, editProject = nul
   ];
 
   return (
-    <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-in fade-in duration-150">
-      <div className="bg-[#F4F7FA] rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-atmo-card-lg border border-[#DDE4EC] overflow-hidden">
+    <div className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 z-50 animate-in fade-in duration-150">
+      <div className="bg-[#F4F7FA] rounded-2xl sm:rounded-3xl max-w-3xl w-full max-h-[96vh] sm:max-h-[90vh] flex flex-col shadow-atmo-card-lg border border-[#DDE4EC] overflow-hidden">
         {/* Header */}
-        <div className="p-4 px-6 border-b border-[#DDE4EC] flex items-center justify-between bg-[#F4F7FA] rounded-t-3xl">
+        <div className="p-3 px-4 sm:p-4 sm:px-6 border-b border-[#DDE4EC] flex items-center justify-between bg-[#F4F7FA]">
           <div>
-            <h2 className="text-base font-extrabold text-[#253142]">
+            <h2 className="text-sm sm:text-base font-extrabold text-[#253142]">
               {isEditing ? `Edit Project: ${editProject.projectId}` : 'Register New Enterprise Project'}
             </h2>
-            <p className="text-xs text-[#7C8998]">
+            <p className="text-[11px] sm:text-xs text-[#7C8998]">
               {isEditing
                 ? 'Update specifications, timelines, or financial allocations'
                 : 'Auto-generates unique Project ID (AIP-2026-XXX) and sets up lifecycle record'}
@@ -196,13 +196,13 @@ export const ProjectFormModal = ({ isOpen, onClose, onSuccess, editProject = nul
         </div>
 
         {/* Section Tabs in Atmosphere Well */}
-        <div className="px-6 pt-3 pb-1">
-          <div className="atmo-well p-1.5 rounded-2xl flex items-center gap-1 overflow-x-auto">
+        <div className="px-3 sm:px-6 pt-3 pb-1">
+          <div className="atmo-well p-1.5 rounded-2xl flex items-center gap-1 overflow-x-auto scrollbar-none">
             {sections.map((s) => (
               <button
                 key={s.id}
                 onClick={() => setActiveSection(s.id)}
-                className={`py-1.5 px-3.5 text-xs font-semibold rounded-xl transition-all cursor-pointer whitespace-nowrap ${
+                className={`py-1.5 px-3 sm:px-3.5 text-xs font-semibold rounded-xl transition-all cursor-pointer whitespace-nowrap ${
                   activeSection === s.id
                     ? 'bg-[#2563EB] text-white shadow-md shadow-blue-500/25 font-bold'
                     : 'text-[#7C8998] hover:text-[#253142] hover:bg-white/60'
@@ -215,7 +215,7 @@ export const ProjectFormModal = ({ isOpen, onClose, onSuccess, editProject = nul
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-4 text-xs">
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 text-xs">
           {/* SECTION A: BASIC INFO */}
           {activeSection === 'A' && (
             <div className="space-y-4">

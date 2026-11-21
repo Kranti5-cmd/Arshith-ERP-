@@ -41,8 +41,8 @@ export const NotificationsPage = ({ onSelectProject }) => {
   };
 
   return (
-    <div className="p-6 space-y-5 max-w-4xl mx-auto text-xs">
-      <div className="flex items-center justify-between pb-4 border-b border-[#DDE4EC]">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-5 max-w-4xl mx-auto text-xs max-w-full overflow-x-hidden font-sans animate-in fade-in duration-200">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pb-4 border-b border-[#DDE4EC]">
         <div>
           <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium">
             <span>Atmosphere</span>
@@ -51,8 +51,8 @@ export const NotificationsPage = ({ onSelectProject }) => {
             <span>&rsaquo;</span>
             <span className="text-[#253142] font-semibold">Notifications</span>
           </div>
-          <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
-            <Bell className="w-6 h-6 text-[#2563EB]" /> Notifications & Operational Alerts
+          <h1 className="text-xl sm:text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+            <Bell className="w-5 h-5 sm:w-6 sm:h-6 text-[#2563EB] shrink-0" /> <span>Notifications & Operational Alerts</span>
           </h1>
           <p className="text-xs text-[#7C8998] mt-0.5">
             Real-time notifications for status transitions, budget utilization thresholds and overdue tasks.

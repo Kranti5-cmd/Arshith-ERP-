@@ -4,6 +4,7 @@
  */
 const http = require('http');
 const https = require('https');
+const { calculateCoursePricing } = require('../utils/coursePricing');
 
 const getBaseUrl = () => (process.env.ARSHITH_EMAIL_URL || 'http://localhost:5001/api').replace(/\/+$/, '');
 const getApiKey = () => process.env.ARSHITH_EMAIL_KEY || '';
@@ -393,28 +394,48 @@ async function sendCourseStartingReminder({ email, name, courseName, startDate }
   });
 }
 
-// 5. Pending Payment Reminder
+// 5. Pending Payment Reminder with Real Course Pricing & 10% Discount
 async function sendPaymentReminder({ email, name, courseName, amount }) {
   const cleanName = (name || 'Student').trim();
   const cName = courseName || 'Specialization Track';
-  const subject = `Action Required: Complete Your Enrollment in ${cName} | CodeLekho`;
+  const pricing = calculateCoursePricing(cName, amount);
+  const subject = `Action Required: Complete Your Enrollment in ${cName} (10% Discount Active) | CodeLekho`;
 
   const bodyHtml = `
     <p style="margin:0 0 20px;font-size:15px;color:#334155;line-height:1.7;">
-      We noticed you initiated enrollment for <strong>${cName}</strong> but haven't completed the course fee (${amount ? `₹${amount}` : '₹99'}).
+      We noticed you initiated enrollment for <strong>${cName}</strong> but haven't completed your course fee payment.
     </p>
 
+    <!-- 10% DISCOUNT PRICING BREAKDOWN CARD -->
+    <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-left:4px solid #10B981;border-radius:12px;padding:20px;margin:20px 0;">
+      <h4 style="margin:0 0 12px;font-size:14px;color:#0F172A;font-weight:700;">Enrollment Fee Summary:</h4>
+      <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td style="padding:6px 0;font-size:13px;color:#64748B;">Standard Course Price:</td>
+          <td style="padding:6px 0;font-size:14px;color:#94A3B8;text-decoration:line-through;text-align:right;">₹${pricing.basePrice}</td>
+        </tr>
+        <tr>
+          <td style="padding:6px 0;font-size:13px;color:#059669;font-weight:600;">Special Student Discount (10% OFF):</td>
+          <td style="padding:6px 0;font-size:13px;color:#059669;font-weight:700;text-align:right;">-₹${pricing.discountAmount}</td>
+        </tr>
+        <tr style="border-top:1px dashed #CBD5E1;">
+          <td style="padding:10px 0 0;font-size:15px;color:#0F172A;font-weight:800;">Total Payable Now:</td>
+          <td style="padding:10px 0 0;font-size:18px;color:#059669;font-weight:900;text-align:right;">₹${pricing.finalPrice}</td>
+        </tr>
+      </table>
+    </div>
+
     <p style="margin:0 0 20px;font-size:14px;color:#334155;line-height:1.7;">
-      Complete your payment securely via Cashfree to instantly unlock your curriculum modules, mentor access, and capstone certification path.
+      Complete your payment securely via Cashfree to instantly unlock your curriculum modules, mentor doubts sessions, and cohort capstone certification.
     </p>
   `;
 
   const html = renderEmailShell({
-    badge: 'PAYMENT PENDING',
+    badge: '10% DISCOUNT APPLIED',
     subtitle: 'Enrollment Completion',
     greeting: `Hi ${cleanName},`,
     bodyHtml,
-    ctaText: 'Complete Payment Now',
+    ctaText: `Pay ₹${pricing.finalPrice} Securely`,
     ctaUrl: getPortalUrl()
   });
 

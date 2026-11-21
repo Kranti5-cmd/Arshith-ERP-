@@ -70,13 +70,13 @@ export const OnHoldPage = ({ onSelectProject, onOpenResumeModal, onOpenHoldModal
   });
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto text-xs">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto text-xs max-w-full overflow-x-hidden font-sans animate-in fade-in duration-200">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium"><span>Atmosphere</span><span>&rsaquo;</span><span>Projects</span><span>&rsaquo;</span><span className="text-[#253142] font-semibold">On-Hold</span></div>
-          <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
-            <PauseCircle className="w-6 h-6 text-amber-500" /> On-Hold Projects Management
+          <h1 className="text-xl sm:text-2xl font-extrabold text-[#253142] tracking-tight flex items-center gap-2">
+            <PauseCircle className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500 shrink-0" /> <span>On-Hold Projects Management</span>
           </h1>
           <p className="text-xs text-[#7C8998] mt-0.5">
             Audit stalled and suspended projects, track hold duration, evaluate root causes, and clear resumption barriers.

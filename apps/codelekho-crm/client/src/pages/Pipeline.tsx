@@ -116,6 +116,20 @@ function getCourseBadge(course: string) {
   return 'bg-purple-50 text-purple-800 border-purple-200';
 }
 
+const getTrackPrice = (trackName: string, customVal?: number) => {
+  if (customVal && customVal > 0 && customVal !== 99) {
+    const disc = Math.round(customVal * 0.10);
+    return { base: customVal, discounted: customVal - disc, isFree: false };
+  }
+  const norm = String(trackName || '').toLowerCase();
+  if (norm.includes('foundation') || norm.includes('free')) return { base: 0, discounted: 0, isFree: true };
+  if (norm.includes('ai') || norm.includes('data')) return { base: 199, discounted: 179, isFree: false };
+  if (norm.includes('python')) return { base: 149, discounted: 134, isFree: false };
+  if (norm.includes('web')) return { base: 149, discounted: 134, isFree: false };
+  if (norm.includes('sql') || norm.includes('database')) return { base: 149, discounted: 134, isFree: false };
+  return { base: 149, discounted: 134, isFree: false };
+};
+
 export default function Pipeline() {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [loading, setLoading] = useState(true);
@@ -129,7 +143,7 @@ export default function Pipeline() {
   const [form, setForm] = useState({
     studentName: '',
     courseTrack: 'Python Programming',
-    feeValue: '99',
+    feeValue: '134',
     assignedTo: '',
     admissionDate: new Date().toISOString().split('T')[0],
     notes: '',
@@ -180,7 +194,7 @@ export default function Pipeline() {
     setForm({
       studentName: '',
       courseTrack: 'Python Programming',
-      feeValue: stage === 'Qualification' ? '0' : '99',
+      feeValue: stage === 'Qualification' ? '0' : '134',
       assignedTo: users[0]?._id || '',
       admissionDate: new Date().toISOString().split('T')[0],
       notes: '',
@@ -253,7 +267,7 @@ export default function Pipeline() {
       {/* ========================================================================= */}
       {/* 1. TOP HEADER & ADMISSIONS SUMMARY BAR                                   */}
       {/* ========================================================================= */}
-      <div className="bg-[#FBF8F1] rounded-2xl border border-[#426557]/25 shadow-xs p-5 md:p-6 transition-all">
+      <div className="bg-[#FFFFFF] rounded-2xl border border-[#426557]/25 shadow-xs p-5 md:p-6 transition-all">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-1">
@@ -349,7 +363,7 @@ export default function Pipeline() {
       {/* 2. ADMISSIONS KANBAN BOARD                                                */}
       {/* ========================================================================= */}
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 overflow-x-auto pb-6">
+        <div className="flex gap-4 overflow-x-auto pb-6 items-start scrollbar-thin max-w-full">
           {ADMISSION_STAGES.map((stage) => {
             const stageDeals = filteredDeals.filter((d) => d.stage === stage.key);
             const totalStageFees = stageDeals.reduce((sum, d) => sum + (d.value || 0), 0);
@@ -357,7 +371,7 @@ export default function Pipeline() {
             return (
               <div
                 key={stage.key}
-                className={`flex flex-col rounded-2xl border ${stage.border} ${stage.bg} p-3 min-w-[275px] transition-all`}
+                className={`flex flex-col rounded-2xl border ${stage.border} ${stage.bg} p-3 w-[290px] shrink-0 transition-all`}
               >
                 {/* Column Header */}
                 <div className={`p-2.5 rounded-xl ${stage.headerBg} border ${stage.border} mb-3 shadow-2xs`}>
@@ -443,22 +457,38 @@ export default function Pipeline() {
 
                                   {/* Fee & Enrollment Status Badge */}
                                   <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
-                                    {isPaid ? (
-                                      <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-md border border-emerald-300">
-                                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                                        <span>₹99 Paid</span>
-                                      </span>
-                                    ) : isPending ? (
-                                      <span className="inline-flex items-center gap-1 text-[11px] font-black text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-md border border-amber-300">
-                                        <Clock className="w-3 h-3 text-amber-600" />
-                                        <span>₹99 Pending</span>
-                                      </span>
-                                    ) : (
-                                      <span className="inline-flex items-center gap-1 text-[11px] font-black text-purple-800 bg-purple-100/80 px-2 py-0.5 rounded-md border border-purple-300">
-                                        <BookOpen className="w-3 h-3 text-purple-600" />
-                                        <span>Free Track</span>
-                                      </span>
-                                    )}
+                                    {(() => {
+                                      const priceInfo = getTrackPrice(course, deal.value);
+                                      if (priceInfo.isFree || course.includes('Foundations')) {
+                                        return (
+                                          <span className="inline-flex items-center gap-1 text-[11px] font-black text-purple-800 bg-purple-100/80 px-2 py-0.5 rounded-md border border-purple-300">
+                                            <BookOpen className="w-3 h-3 text-purple-600" />
+                                            <span>Free Track</span>
+                                          </span>
+                                        );
+                                      }
+                                      if (isPaid) {
+                                        return (
+                                          <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-md border border-emerald-300" title={`Original Fee: ₹${priceInfo.base} (10% Discount Applied)`}>
+                                            <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                                            <span>₹{priceInfo.discounted} Paid</span>
+                                          </span>
+                                        );
+                                      }
+                                      if (isPending) {
+                                        return (
+                                          <span className="inline-flex items-center gap-1 text-[11px] font-black text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-md border border-amber-300" title={`Original Fee: ₹${priceInfo.base} (10% Discount Applied)`}>
+                                            <Clock className="w-3 h-3 text-amber-600" />
+                                            <span>₹{priceInfo.discounted} Pending</span>
+                                          </span>
+                                        );
+                                      }
+                                      return (
+                                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200">
+                                          <span>₹{priceInfo.discounted}</span>
+                                        </span>
+                                      );
+                                    })()}
 
                                     {/* Counselor Attribution */}
                                     <span className="text-[10px] font-bold text-slate-500 truncate max-w-[100px]">
@@ -519,31 +549,34 @@ export default function Pipeline() {
               value={form.courseTrack}
               onChange={(e) => {
                 const tr = e.target.value;
+                const p = getTrackPrice(tr);
                 setForm({
                   ...form,
                   courseTrack: tr,
-                  feeValue: tr.includes('Foundations') ? '0' : '99',
+                  feeValue: String(p.discounted),
                 });
               }}
               className="select-field"
             >
-              <option value="Python Programming">Python Programming (₹99)</option>
-              <option value="Web Development">Web Development (₹99)</option>
-              <option value="SQL Mastery">SQL Mastery (₹99)</option>
-              <option value="AI & Data Science">AI & Data Science (₹99)</option>
+              <option value="Python Programming">Python Programming (₹134 — 10% OFF ₹149)</option>
+              <option value="Web Development">Web Development (₹134 — 10% OFF ₹149)</option>
+              <option value="SQL Mastery">SQL Mastery (₹134 — 10% OFF ₹149)</option>
+              <option value="AI & Data Science">AI & Data Science (₹179 — 10% OFF ₹199)</option>
               <option value="Foundations Track">Foundations Track (Free Cohort)</option>
             </select>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">Course Fee (₹) *</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">
+                Discounted Fee (₹) <span className="text-emerald-600 font-semibold">(10% OFF)</span>
+              </label>
               <input
                 type="number"
                 value={form.feeValue}
                 onChange={(e) => setForm({ ...form, feeValue: e.target.value })}
                 className="input-field"
-                placeholder="99"
+                placeholder="134"
               />
             </div>
 

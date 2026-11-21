@@ -179,10 +179,10 @@ const defaultTemplates = [
   },
   {
     name: 'Payment Pending Reminder',
-    subject: 'Action Required: Complete your enrollment in {{course_name}} | CodeLekho',
+    subject: 'Action Required: Complete your enrollment in {{course_name}} (10% Discount Active) | CodeLekho',
     category: 'Billing & Payment',
     htmlContent: emailShell({
-      badge: 'FEE PAYMENT PENDING',
+      badge: '10% DISCOUNT ACTIVE',
       subtitle: 'Specialization Track Enrollment',
       greeting: 'Hi {{student_name}},',
       bodyHtml: `
@@ -190,11 +190,30 @@ const defaultTemplates = [
           We noticed your payment status for <strong>{{course_name}}</strong> is currently <span style="display:inline-block;padding:2px 8px;background:#FEE2E2;color:#991B1B;border-radius:8px;font-size:12px;font-weight:700;">{{payment_status}}</span>.
         </p>
 
+        <!-- 10% DISCOUNT PRICING BREAKDOWN CARD -->
+        <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-left:4px solid #10B981;border-radius:12px;padding:20px;margin:20px 0;">
+          <h4 style="margin:0 0 12px;font-size:14px;color:#0F172A;font-weight:700;">Special Student Discount Fee Summary:</h4>
+          <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td style="padding:6px 0;font-size:13px;color:#64748B;">Standard Course Fee:</td>
+              <td style="padding:6px 0;font-size:14px;color:#94A3B8;text-decoration:line-through;text-align:right;">{{base_price}}</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 0;font-size:13px;color:#059669;font-weight:600;">Special Student Discount (10% OFF):</td>
+              <td style="padding:6px 0;font-size:13px;color:#059669;font-weight:700;text-align:right;">-{{discount_amount}}</td>
+            </tr>
+            <tr style="border-top:1px dashed #CBD5E1;">
+              <td style="padding:10px 0 0;font-size:15px;color:#0F172A;font-weight:800;">Total Payable Now:</td>
+              <td style="padding:10px 0 0;font-size:18px;color:#059669;font-weight:900;text-align:right;">{{payable_amount}}</td>
+            </tr>
+          </table>
+        </div>
+
         <p style="margin:0 0 20px;font-size:14px;color:#334155;line-height:1.7;">
-          Please complete your enrollment fee (₹99) securely via Cashfree to instantly activate your live workshops, mentor doubts sessions, and certificate eligibility.
+          Please complete your enrollment fee (<strong>{{payable_amount}}</strong> with 10% discount applied) securely via Cashfree to instantly activate your live workshops, mentor doubts sessions, and certificate eligibility.
         </p>
       `,
-      ctaText: 'Complete Payment Securely',
+      ctaText: 'Complete Payment Securely (10% OFF)',
       ctaUrl: 'https://arshithbootcamp.com'
     }),
     bodyText: 'Payment pending for {{course_name}} at CodeLekho. Status: {{payment_status}}.'

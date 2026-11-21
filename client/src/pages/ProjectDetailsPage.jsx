@@ -358,19 +358,19 @@ export const ProjectDetailsPage = ({
   ];
 
   return (
-    <div className="p-6 space-y-6 max-w-7xl mx-auto">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-6 max-w-7xl mx-auto max-w-full overflow-x-hidden font-sans animate-in fade-in duration-200">
       {/* Top Breadcrumb & Action Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#DDE4EC]">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 pb-4 border-b border-[#DDE4EC]">
+        <div className="flex items-center gap-2.5 sm:gap-3">
           <button
             onClick={onBack}
-            className="p-2.5 bg-[#E8EDF3] border border-[#DDE4EC] hover:bg-[#DDE4EC] text-[#253142] rounded-2xl transition-all shadow-atmo-btn"
+            className="p-2 sm:p-2.5 bg-[#E8EDF3] border border-[#DDE4EC] hover:bg-[#DDE4EC] text-[#253142] rounded-2xl transition-all shadow-atmo-btn shrink-0"
             title="Back to list"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
               <span className="font-mono text-xs font-bold text-[#2563EB] px-2.5 py-0.5 rounded-full bg-[#EFF6FF] border border-[#BFDBFE]">
                 {p.projectId}
               </span>
@@ -380,7 +380,7 @@ export const ProjectDetailsPage = ({
               <span className="text-xs text-[#A0ACBA]">•</span>
               <span className="text-xs text-[#7C8998] font-medium">{p.categoryName}</span>
             </div>
-            <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight mt-1">{p.title}</h1>
+            <h1 className="text-xl sm:text-2xl font-extrabold text-[#253142] tracking-tight mt-1">{p.title}</h1>
           </div>
         </div>
 

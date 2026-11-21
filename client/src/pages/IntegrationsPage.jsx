@@ -186,11 +186,11 @@ export const IntegrationsPage = () => {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8 animate-in fade-in duration-200">
+    <div className="p-3 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-4 sm:space-y-8 animate-in fade-in duration-200 max-w-full overflow-x-hidden font-sans">
       {/* Toast Alert */}
       {toast && (
         <div
-          className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl shadow-lg border flex items-center gap-3 text-xs font-semibold ${
+          className={`fixed bottom-20 sm:bottom-6 right-3 sm:right-6 z-50 px-4 py-3 rounded-2xl shadow-atmo-card-lg border flex items-center gap-3 text-xs font-semibold ${
             toast.type === 'success'
               ? 'bg-emerald-50 text-emerald-900 border-emerald-200'
               : toast.type === 'warn'

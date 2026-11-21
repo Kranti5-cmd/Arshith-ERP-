@@ -31,8 +31,8 @@ export const ProjectDeliverModal = ({ isOpen, onClose, onSuccess, project }) => 
   };
 
   return (
-    <div className="fixed inset-0 bg-[#253142]/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-      <div className="bg-[#F4F7FA] rounded-3xl max-w-md w-full p-6 shadow-atmo-card-lg border border-[#DDE4EC] text-xs">
+    <div className="fixed inset-0 bg-[#253142]/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 z-50">
+      <div className="bg-[#F4F7FA] rounded-2xl sm:rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-atmo-card-lg border border-[#DDE4EC] text-xs max-h-[95vh] overflow-y-auto">
         <div className="flex items-center justify-between pb-3 border-b border-[#DDE4EC]">
           <div className="flex items-center gap-2">
             <Truck className="w-5 h-5 text-teal-600" />

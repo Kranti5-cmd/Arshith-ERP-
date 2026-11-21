@@ -40,7 +40,7 @@ export const PipelinePage = ({ onSelectProject }) => {
   }, []);
 
   return (
-    <div className="p-6 space-y-5 max-w-7xl mx-auto">
+    <div className="p-3 sm:p-6 space-y-4 sm:space-y-5 max-w-7xl mx-auto max-w-full overflow-x-hidden font-sans animate-in fade-in duration-200">
       <div>
         <div className="flex items-center gap-2 text-xs text-[#7C8998] mb-1 font-medium">
           <span>Atmosphere</span>
@@ -49,7 +49,7 @@ export const PipelinePage = ({ onSelectProject }) => {
           <span>&rsaquo;</span>
           <span className="text-[#253142] font-semibold">Pipeline</span>
         </div>
-        <h1 className="text-2xl font-extrabold text-[#253142] tracking-tight">Project Portfolio Pipeline Workflow</h1>
+        <h1 className="text-xl sm:text-2xl font-extrabold text-[#253142] tracking-tight">Project Portfolio Pipeline Workflow</h1>
         <p className="text-xs text-[#7C8998] mt-0.5">
           End-to-end lifecycle visual pipeline tracking from intake to completion and client delivery.
         </p>
